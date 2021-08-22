@@ -12,7 +12,7 @@ interface IInputVals {
 }
 
 const Auth = () => {
-  const [inputVals, setInputVals] = useState({
+  const [inputVals, setInputVals] = useState<IInputVals>({
     name: "",
     email: "",
     password: "",
@@ -24,18 +24,23 @@ const Auth = () => {
 
   const createUserHandler = async (e: any) => {
     e.preventDefault();
-    const { name, email, password } = inputVals;
-    if (name && email && password) {
-      const resp = await axios({
-        url: `http://localhost:5000/user`,
-        method: "POST",
-        data: {
-          username: name,
-          email,
-          password,
-        },
-      });
-      console.log(resp.data);
+    try {
+      const { name, email, password } = inputVals;
+      if (name && email && password) {
+        const resp = await axios({
+          url: `http://localhost:5000/user`,
+          method: "POST",
+          data: {
+            username: name,
+            email,
+            password,
+          },
+        });
+        const newUser = resp.data;
+        console.log(newUser);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 

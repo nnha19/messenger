@@ -29,7 +29,8 @@ route.post("/", async (req, res) => {
               password: hashed,
             });
             if (newUser) {
-              res.status(200).json(newUser);
+              const { username, email, _id } = newUser;
+              res.status(200).json({ username, email, _id });
             } else {
               res.status(400).json({ error: "Something went wrong." });
             }
