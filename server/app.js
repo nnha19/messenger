@@ -1,11 +1,20 @@
 const express = require("express");
 const http = require("http");
 const dotenv = require("dotenv");
+const mongoose = require("mongoose");
 
 dotenv.config();
 
 const app = express();
+app.use(express.json());
 const server = http.createServer(app);
+
+mongoose
+  .connect(process.env.CONNECT_DB, {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("connected to mongoDB"))
+  .catch((err) => console.log(err));
 
 const userRoute = require("./routes/userRoute");
 
