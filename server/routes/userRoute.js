@@ -4,8 +4,17 @@ const User = require("../Models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-route.get("/", (req, res) => {
-  res.send("Hey.");
+route.get("/", async (req, res) => {
+  try {
+    const users = await User.find({});
+    const usersWithoutPass = users.map((user) => {
+      const { username, email, _id } = user;
+      return { username, email, _id };
+    });
+    res.status(200).json({ users: usersWithoutPass });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 });
 
 route.post("/", async (req, res) => {

@@ -11,12 +11,11 @@ const ToggleHeader: React.FC<IProps> = ({
   activeHeader,
   toggleHeader,
 }) => {
-  const active =
-    activeHeader === header && `text-primary border-b-4 border-primary`;
+  const active = activeHeader === header && `border-b-4 font-bold `;
   return (
     <h2
       onClick={() => toggleHeader(header)}
-      className={`cursor-pointer text-center py-4 text-md font-bold px-8 ${active}`}
+      className={`cursor-pointer text-center py-4 text-md text-white px-8 ${active}`}
     >
       {header}
     </h2>

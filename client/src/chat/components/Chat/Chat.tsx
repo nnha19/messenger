@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { IUser } from "../../../App";
 import { IUserType } from "../../../types/userTypes";
 import Groups from "./Groups/Groups";
 
@@ -15,7 +14,7 @@ const Chat: React.FC<IUserType> = ({ users }) => {
 
   return (
     <div className="shadow-md w-1/5 mt-36 mx-24 pb-4">
-      <div className="flex justify-between ">
+      <div className="flex justify-between bg-primary ">
         <ToggleHeader
           toggleHeader={toggleHeaderHandler}
           activeHeader={activeHeader}
