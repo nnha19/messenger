@@ -16,17 +16,19 @@ const Auth = () => {
 
   const [inputVals, setInputVals] = useState<IInputVals>({
     name: "",
-    email: "",
-    password: "",
+    email: "nyinyi@gmail.com",
+    password: "password",
   });
-  const [loginMode, setLoginMode] = useState(false);
+  const [loginMode, setLoginMode] = useState(true);
+  const [changedMode, setChangedMode] = useState(false);
 
   useEffect(() => {
-    setInputVals({
-      name: "",
-      email: "",
-      password: "",
-    });
+    changedMode &&
+      setInputVals({
+        name: "",
+        email: "",
+        password: "",
+      });
   }, [loginMode]);
 
   const changeValHandler = (e: any, name: string) => {
@@ -67,6 +69,7 @@ const Auth = () => {
 
   const changeLoginModeHandler = (): void => {
     setLoginMode(!loginMode);
+    setChangedMode(true);
   };
 
   return (
