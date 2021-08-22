@@ -44,4 +44,26 @@ route.post("/", async (req, res) => {
   }
 });
 
+route.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (user) {
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (result) {
+          const { username, email, _id } = user;
+          res.status(200).json({ username, email, _id });
+        } else {
+          res.status(400).json({ error: "Incorrect Password" });
+        }
+      });
+    } else {
+      res.status(400).json({ error: "User with that email doesn't exist" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error });
+  }
+});
+
 module.exports = route;

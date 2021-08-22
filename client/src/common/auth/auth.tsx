@@ -1,17 +1,19 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 import axios from "axios";
 
 import Button from "../button/button";
 import Input from "../input/Input";
 
-interface IInputVals {
+export interface IInputVals {
   email: string;
   password: string;
   name: string;
 }
 
 const Auth = () => {
+  const context = useContext(AuthContext);
+  console.log(context);
   const [inputVals, setInputVals] = useState<IInputVals>({
     name: "",
     email: "",
@@ -37,7 +39,7 @@ const Auth = () => {
           },
         });
         const newUser = resp.data;
-        console.log(newUser);
+        context.signIn(newUser);
       }
     } catch (error) {
       console.log(error);
