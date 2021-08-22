@@ -4,8 +4,8 @@ import { Route, Switch, useHistory } from "react-router-dom";
 
 import { AuthContext } from "./context/authContext";
 
-import Auth from "./common/auth/auth";
 import ChatPage from "./chat/pages/chatPage";
+import AuthPage from "./auth/pages/authPage";
 
 export interface IUser {
   user: {
@@ -31,7 +31,7 @@ function App() {
       <div>
         <Switch>
           {isAuth && <Route path="/chat" exact component={ChatPage} />}
-          {!isAuth && <Route exact component={Auth} />}
+          {!isAuth && <Route exact component={AuthPage} />}
         </Switch>
       </div>
     </AuthContext.Provider>
