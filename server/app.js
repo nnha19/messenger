@@ -2,11 +2,13 @@ const express = require("express");
 const http = require("http");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
-
+const cors = require("cors");
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
+
 const server = http.createServer(app);
 
 mongoose

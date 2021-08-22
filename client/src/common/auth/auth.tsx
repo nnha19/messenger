@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+
+import axios from "axios";
+
 import Button from "../button/button";
 import Input from "../input/Input";
 
@@ -19,10 +22,20 @@ const Auth = () => {
     setInputVals({ ...inputVals, [name]: e.target.value });
   };
 
-  const createUserHandler = (e: any) => {
+  const createUserHandler = async (e: any) => {
     e.preventDefault();
-    if (inputVals.name && inputVals.email && inputVals.password) {
-      console.log("Create account.");
+    const { name, email, password } = inputVals;
+    if (name && email && password) {
+      const resp = await axios({
+        url: `http://localhost:5000/user`,
+        method: "POST",
+        data: {
+          username: name,
+          email,
+          password,
+        },
+      });
+      console.log(resp.data);
     }
   };
 
