@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../../context/authContext";
 import axios from "axios";
 
@@ -20,6 +20,14 @@ const Auth = () => {
     password: "",
   });
   const [loginMode, setLoginMode] = useState(false);
+
+  useEffect(() => {
+    setInputVals({
+      name: "",
+      email: "",
+      password: "",
+    });
+  }, [loginMode]);
 
   const changeValHandler = (e: any, name: string) => {
     setInputVals({ ...inputVals, [name]: e.target.value });
@@ -65,7 +73,9 @@ const Auth = () => {
     <div className="h-screen p-4 flex flex-col justify-center items-center shadow-md bg-primary">
       <div className="w-1/4 mx-auto bg-white">
         <div className="p-2 border-b-2">
-          <h2 className="text-center font-medium">Create Account</h2>
+          <h2 className="text-center font-medium">
+            {loginMode ? "Sign In" : "Create Account"}
+          </h2>
         </div>
         <div className="p-12">
           <form onSubmit={createUserHandler}>
