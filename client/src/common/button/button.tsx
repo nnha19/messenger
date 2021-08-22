@@ -1,13 +1,17 @@
-import React, { ReactChild } from "react";
+import React, { ReactChild, useContext } from "react";
 
 interface IProps {
   children: ReactChild;
   clss?: string;
+  style?: object;
+  clicked: () => void;
 }
 
-const Button: React.FC<IProps> = ({ children, clss }) => {
+const Button: React.FC<IProps> = ({ children, clss, style, clicked }) => {
   return (
     <button
+      onClick={clicked}
+      style={style}
       className={`bg-primary px-6 py-2 w-full rounded text-white font-medium mt-2 ${clss}`}
     >
       {children}

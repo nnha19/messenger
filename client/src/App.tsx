@@ -6,6 +6,7 @@ import { IUserType } from "./types/userTypes";
 
 import ChatPage from "./chat/pages/chatPage";
 import AuthPage from "./auth/pages/authPage";
+import Nav from "./common/Nav/Nav";
 
 function App() {
   const history = useHistory();
@@ -18,9 +19,21 @@ function App() {
     history.push("/chat");
   };
 
+  const signOutHandler = () => {
+    setCurUser(undefined);
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuth, signIn: signInHandler, curUser }}>
+    <AuthContext.Provider
+      value={{
+        isAuth,
+        signIn: signInHandler,
+        curUser,
+        signOut: signOutHandler,
+      }}
+    >
       <div>
+        {isAuth && <Nav />}
         <Switch>
           {isAuth && <Route path="/chat" exact component={ChatPage} />}
           {!isAuth && <Route exact component={AuthPage} />}
