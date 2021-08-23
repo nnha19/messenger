@@ -1,17 +1,20 @@
 import React, { useRef, useState } from "react";
 
-const ImageUpload = () => {
-  const imgInput = useRef<HTMLInputElement>(null);
-  const [selectedImg, setSelectedImg] = useState<any>(
-    "https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvdjc5MS10YW5nLTM1LnBuZw.png?s=aLxshBxLcykO2UAnr6F0Nzhqtdx6iR6UuKi4bFSTzC8"
-  );
+interface IProps {
+  changeAvatar: (e: any) => void;
+}
 
-  const changeHandler = (e: any) => {
-    setSelectedImg(URL.createObjectURL(e.target.files[0]));
-  };
+const ImageUpload: React.FC<IProps> = ({ changeAvatar }) => {
+  const [avatarPreview, setAvatarPreview] = useState<string>("");
+  const imgInput = useRef<HTMLInputElement>(null);
 
   const chooseImgHandler = () => {
     imgInput.current?.click();
+  };
+
+  const changeImgHandler = (e: any) => {
+    setAvatarPreview(URL.createObjectURL(e.target.files[0]));
+    changeAvatar(e);
   };
 
   return (
@@ -19,13 +22,13 @@ const ImageUpload = () => {
       <input
         ref={imgInput}
         className="hidden"
-        onChange={changeHandler}
+        onChange={changeImgHandler}
         type="file"
       />
       <div className=" h-32 my-4 relative">
         <img
           className="h-full w-32 rounded-full mx-auto"
-          src={selectedImg}
+          src={avatarPreview}
           alt="Avatar"
         />
         <div

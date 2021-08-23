@@ -10,6 +10,7 @@ export interface IInputVals {
   email: string;
   password: string;
   name: string;
+  avatar: string;
 }
 
 const Auth = () => {
@@ -19,6 +20,8 @@ const Auth = () => {
     name: "",
     email: "nyinyi@gmail.com",
     password: "password",
+    avatar:
+      "https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvdjc5MS10YW5nLTM1LnBuZw.png?s=aLxshBxLcykO2UAnr6F0Nzhqtdx6iR6UuKi4bFSTzC8",
   });
   const [loginMode, setLoginMode] = useState(true);
   const [changedMode, setChangedMode] = useState(false);
@@ -26,6 +29,7 @@ const Auth = () => {
   useEffect(() => {
     changedMode &&
       setInputVals({
+        ...inputVals,
         name: "",
         email: "",
         password: "",
@@ -36,19 +40,26 @@ const Auth = () => {
     setInputVals({ ...inputVals, [name]: e.target.value });
   };
 
+  const changeAvatarHandler = (e: any) => {
+    setInputVals({
+      ...inputVals,
+      avatar: e.target.files[0],
+    });
+  };
+  console.log(inputVals.avatar);
+
   const createUserHandler = async (e: any) => {
     e.preventDefault();
+    const formData = new FormData();
+    const { name: username, email, password, avatar } = inputVals;
+    formData.append("email", email);
+    formData.append("password", password);
+    if (!loginMode) {
+      formData.append("username", username);
+      formData.append("avatar", avatar);
+    }
+
     try {
-      let data;
-      const { name: username, email, password } = inputVals;
-      if (loginMode) {
-        data = {
-          password,
-          email,
-        };
-      } else {
-        data = { email, password, username };
-      }
       if (
         (username && email && password && !loginMode) ||
         (email && password && loginMode)
@@ -58,7 +69,7 @@ const Auth = () => {
             ? `http://localhost:5000/user`
             : "http://localhost:5000/user/login",
           method: "POST",
-          data,
+          data: formData,
         });
         const newUser = resp.data;
         context.signIn(newUser);
@@ -83,7 +94,7 @@ const Auth = () => {
         </div>
         <div className="p-12">
           <form onSubmit={createUserHandler}>
-            {!loginMode && <ImageUpload />}
+            {!loginMode && <ImageUpload changeAvatar={changeAvatarHandler} />}
             <Input
               onChange={changeValHandler}
               value={inputVals.email}
