@@ -4,6 +4,7 @@ import axios from "axios";
 
 import Button from "../../../common/button/button";
 import Input from "../../../common/input/Input";
+import ImageUpload from "./ImgUpload/ImageUpload";
 
 export interface IInputVals {
   email: string;
@@ -82,6 +83,7 @@ const Auth = () => {
         </div>
         <div className="p-12">
           <form onSubmit={createUserHandler}>
+            <ImageUpload />
             <Input
               onChange={changeValHandler}
               value={inputVals.email}

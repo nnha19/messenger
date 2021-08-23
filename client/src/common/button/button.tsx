@@ -4,7 +4,7 @@ interface IProps {
   children: ReactChild;
   clss?: string;
   style?: object;
-  clicked: () => void;
+  clicked?: () => void;
 }
 
 const Button: React.FC<IProps> = ({ children, clss, style, clicked }) => {
