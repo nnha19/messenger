@@ -3,13 +3,14 @@ const route = express.Router();
 const User = require("../Models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const imageUpload = require("../middlewares/multer");
 
 route.get("/", async (req, res) => {
   try {
     const users = await User.find({});
     const usersWithoutPass = users.map((user) => {
-      const { username, email, _id } = user;
-      return { username, email, _id };
+      const { username, email, _id, img } = user;
+      return { username, email, _id, img };
     });
     res.status(200).json({ users: usersWithoutPass });
   } catch (error) {
@@ -17,7 +18,7 @@ route.get("/", async (req, res) => {
   }
 });
 
-route.post("/", async (req, res) => {
+route.post("/", imageUpload.single("avatar"), async (req, res) => {
   try {
     const { email, username, password } = req.body;
     const userExist = await User.findOne({ email });
@@ -36,10 +37,12 @@ route.post("/", async (req, res) => {
               username,
               email,
               password: hashed,
+              img: req.file.path,
             });
             if (newUser) {
-              const { username, email, _id } = newUser;
-              res.status(200).json({ username, email, _id });
+              const { username, email, _id, img } = newUser;
+              console.log(newUser);
+              res.status(200).json({ username, email, _id, img });
             } else {
               res.status(400).json({ error: "Something went wrong." });
             }

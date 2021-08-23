@@ -13,7 +13,7 @@ const Users: React.FC<IUserType> = ({ users }) => {
         <div>
           <img
             className="h-16 rounded-full"
-            src="https://github.com/nnha19.png"
+            src={`http://localhost:5000/${user.img}`}
             alt=""
           />
         </div>

@@ -1,7 +1,5 @@
 import React, { useRef, useState } from "react";
 
-// import image from "../../../../assets/imgs/avatar.png";
-
 const ImageUpload = () => {
   const imgInput = useRef<HTMLInputElement>(null);
   const [selectedImg, setSelectedImg] = useState<any>(

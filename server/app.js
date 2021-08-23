@@ -3,9 +3,13 @@ const http = require("http");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 dotenv.config();
 
+const multer = require("multer");
+
 const app = express();
+app.use("/uploads", express.static(path.join("uploads")));
 app.use(cors());
 app.use(express.json());
 
