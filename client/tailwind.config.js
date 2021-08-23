@@ -8,6 +8,9 @@ module.exports = {
         secondary: "#F1CCCC",
         bgPrimary: "#C4C4C4",
       },
+      height: {
+        md: "31rem",
+      },
     },
   },
   variants: {

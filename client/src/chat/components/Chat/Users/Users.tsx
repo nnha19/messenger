@@ -1,35 +1,29 @@
 import React, { useContext } from "react";
 
-import { IUsersType } from "../../../../types/types";
+import { IUsersType, IUserType } from "../../../../types/types";
 import { AuthContext } from "../../../../context/authContext";
 
-const Users: React.FC<IUsersType> = ({ users }) => {
+import SingleUser from "./SingleUser/SingleUser";
+
+interface IProps {
+  users: IUsersType["users"];
+  setChatWithUser: (userObj: IUserType["user"]) => void;
+}
+
+const Users: React.FC<IProps> = ({ users, setChatWithUser }) => {
   const context = useContext(AuthContext);
 
   const displayUsers = users.map((user) => {
     const userIsCurUser = context?.curUser?._id === user._id && "(You)";
     return (
-      <div key={user._id} className="mb-2 p-4 flex cursor-pointer">
-        <div>
-          <img
-            className="h-16 rounded-full"
-            src={`http://localhost:5000/${user.img}`}
-            alt=""
-          />
-        </div>
-        <div className="ml-6 self-center">
-          <h1>
-            {user.username} {userIsCurUser}
-          </h1>
-          <span className="flex items-center">
-            <span className="h-2 w-2 rounded-full bg-primary block mr-2"></span>
-            {user.activeNow ? "Active Now" : "Away"}
-          </span>
-        </div>
-      </div>
+      <SingleUser
+        setChatWithUser={setChatWithUser}
+        user={user}
+        userIsCurUser={userIsCurUser}
+      />
     );
   });
-  return <div className="h-96 overflow-y-scroll">{displayUsers}</div>;
+  return <div className="h-md overflow-y-scroll">{displayUsers}</div>;
 };
 
 export default Users;

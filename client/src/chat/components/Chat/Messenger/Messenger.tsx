@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+
+import { IUserType } from "../../../../types/types";
+
 import Button from "../../../../common/button/button";
 import Input from "../../../../common/input/Input";
+import SingleUser from "../Users/SingleUser/SingleUser";
 
-const Messenger = () => {
+const Messenger: React.FC<IUserType> = ({ user }) => {
   const [message, setMessage] = useState<string>("");
 
   const typingMsgHandler = (e: any): void => {
@@ -11,9 +15,7 @@ const Messenger = () => {
 
   return (
     <div className="w-96 shadow border-2">
-      <div className="px-8 py-4">
-        <span>Nyi Nyi</span>
-      </div>
+      <SingleUser user={user} />
       <hr />
       <div className="h-96 px-8 py-4">Messages</div>
       <hr />
