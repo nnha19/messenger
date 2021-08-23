@@ -4,6 +4,7 @@ export interface IUserType {
     username: string;
     _id: string;
     img: string;
+    activeNow: boolean;
   };
 }
 

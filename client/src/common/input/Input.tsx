@@ -1,13 +1,14 @@
 import React from "react";
 
 interface IProps {
-  label: string;
+  label?: string;
   placeholder: string;
   value: string;
   name: string;
   clsName?: string;
   type: string;
   onChange: (e: any, name: string) => void;
+  style?: object;
 }
 
 const Input: React.FC<IProps> = ({
@@ -17,11 +18,12 @@ const Input: React.FC<IProps> = ({
   name,
   clsName,
   type,
+  style,
   onChange,
 }) => {
   return (
-    <div className="mb-4">
-      <label className="block mb-2">{label}</label>
+    <div style={style} className="mb-4">
+      {label && <label className="block mb-2">{label}</label>}
       <input
         onChange={(e) => onChange(e, name)}
         name={name}

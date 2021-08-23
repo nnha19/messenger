@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 
 import axios from "axios";
-import { IUserType } from "../../types/userTypes";
+import { IUsersType } from "../../types/types";
 
 import Chat from "../components/Chat/Chat";
 
 const ChatPage = () => {
-  const [users, setUsers] = useState<IUserType["users"]>([]);
+  const [users, setUsers] = useState<IUsersType["users"]>([]);
 
   useEffect(() => {
     (async () => {

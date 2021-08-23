@@ -1,7 +1,7 @@
 import React, { ReactChild, useContext } from "react";
 
 interface IProps {
-  children: ReactChild;
+  children: React.ReactNode;
   clss?: string;
   style?: object;
   clicked?: () => void;

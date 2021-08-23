@@ -46,17 +46,19 @@ const Auth = () => {
       avatar: e.target.files[0],
     });
   };
-  console.log(inputVals.avatar);
 
   const createUserHandler = async (e: any) => {
     e.preventDefault();
-    const formData = new FormData();
+    let data;
     const { name: username, email, password, avatar } = inputVals;
-    formData.append("email", email);
-    formData.append("password", password);
     if (!loginMode) {
-      formData.append("username", username);
-      formData.append("avatar", avatar);
+      data = new FormData();
+      data.append("email", email);
+      data.append("password", password);
+      data.append("username", username);
+      data.append("avatar", avatar);
+    } else {
+      data = { email, password };
     }
 
     try {
@@ -69,10 +71,10 @@ const Auth = () => {
             ? `http://localhost:5000/user`
             : "http://localhost:5000/user/login",
           method: "POST",
-          data: formData,
+          data,
         });
         const newUser = resp.data;
-        context.signIn(newUser);
+        context?.signIn(newUser);
       }
     } catch (error) {
       console.log(error);

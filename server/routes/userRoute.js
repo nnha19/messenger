@@ -9,8 +9,8 @@ route.get("/", async (req, res) => {
   try {
     const users = await User.find({});
     const usersWithoutPass = users.map((user) => {
-      const { username, email, _id, img } = user;
-      return { username, email, _id, img };
+      const { username, email, _id, img, activeNow } = user;
+      return { username, email, _id, img, activeNow };
     });
     res.status(200).json({ users: usersWithoutPass });
   } catch (error) {
@@ -38,11 +38,11 @@ route.post("/", imageUpload.single("avatar"), async (req, res) => {
               email,
               password: hashed,
               img: req.file.path,
+              activeNow: true,
             });
             if (newUser) {
-              const { username, email, _id, img } = newUser;
-              console.log(newUser);
-              res.status(200).json({ username, email, _id, img });
+              const { username, email, _id, img, activeNow } = newUser;
+              res.status(200).json({ username, email, _id, img, activeNow });
             } else {
               res.status(400).json({ error: "Something went wrong." });
             }
@@ -58,13 +58,15 @@ route.post("/", imageUpload.single("avatar"), async (req, res) => {
 
 route.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, activeNow } = req.body;
     const user = await User.findOne({ email });
     if (user) {
-      bcrypt.compare(password, user.password, (err, result) => {
+      bcrypt.compare(password, user.password, async (err, result) => {
         if (result) {
           const { username, email, _id } = user;
-          res.status(200).json({ username, email, _id });
+          user.activeNow = true;
+          await user.save();
+          res.status(200).json({ username, email, _id, activeNow });
         } else {
           res.status(400).json({ error: "Incorrect Password" });
         }

@@ -23,7 +23,7 @@ const Users: React.FC<IUsersType> = ({ users }) => {
           </h1>
           <span className="flex items-center">
             <span className="h-2 w-2 rounded-full bg-primary block mr-2"></span>
-            Active Now
+            {user.activeNow ? "Active Now" : "Away"}
           </span>
         </div>
       </div>
