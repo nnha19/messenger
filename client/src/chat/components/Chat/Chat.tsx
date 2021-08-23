@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IUserType } from "../../../types/userTypes";
+import { IUserType } from "../../../types/types";
 import Groups from "./Groups/Groups";
 
 import ToggleHeader from "./ToggleHeader/ToggleHeader";

@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 
-import { IUserType } from "../../../../types/userTypes";
+import { IUsersType } from "../../../../types/types";
 import { AuthContext } from "../../../../context/authContext";
 
-const Users: React.FC<IUserType> = ({ users }) => {
+const Users: React.FC<IUsersType> = ({ users }) => {
   const context = useContext(AuthContext);
 
   const displayUsers = users.map((user) => {
-    const userIsCurUser = context.curUser._id === user._id && "(You)";
+    const userIsCurUser = context?.curUser?._id === user._id && "(You)";
     return (
       <div key={user._id} className="mb-2 p-4 flex cursor-pointer">
         <div>
