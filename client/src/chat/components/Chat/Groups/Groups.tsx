@@ -1,6 +1,6 @@
 import React from "react";
 
 const Groups = () => {
-  return <div>Groups</div>;
+  return <div className="h-md">Groups</div>;
 };
 export default Groups;

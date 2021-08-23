@@ -6,7 +6,11 @@ import Button from "../../../../common/button/button";
 import Input from "../../../../common/input/Input";
 import SingleUser from "../Users/SingleUser/SingleUser";
 
-const Messenger: React.FC<IUserType> = ({ user }) => {
+const Messenger = (props: {
+  user: IUserType["user"];
+  hideChatWithUser: () => void;
+}) => {
+  const { user, hideChatWithUser } = props;
   const [message, setMessage] = useState<string>("");
 
   const typingMsgHandler = (e: any): void => {
@@ -14,7 +18,12 @@ const Messenger: React.FC<IUserType> = ({ user }) => {
   };
 
   return (
-    <div className="w-96 shadow border-2">
+    <div className="w-96 shadow border-2 relative">
+      <i
+        onClick={hideChatWithUser}
+        style={{ top: "-2rem", right: "-1rem" }}
+        className="fas fa-times-circle absolute text-3xl text-primary cursor-pointer"
+      ></i>
       <SingleUser user={user} />
       <hr />
       <div className="h-96 px-8 py-4">Messages</div>

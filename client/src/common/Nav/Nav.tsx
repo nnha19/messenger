@@ -7,7 +7,7 @@ import Button from "../button/button";
 const Nav = () => {
   const authContext = useContext(AuthContext);
   const signOutHandler = () => {
-    authContext.signOut();
+    authContext?.signOut();
   };
 
   return (

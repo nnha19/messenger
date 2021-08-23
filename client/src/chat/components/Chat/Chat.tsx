@@ -20,7 +20,7 @@ const Chat: React.FC<IUsersType> = ({ users }) => {
 
   return (
     <div className=" flex p-12 items-start">
-      <div className="shadow-md w-1/5 mx-24 pb-4">
+      <div className="shadow-md mx-24 pb-4 w-80">
         <div className="flex justify-between bg-primary ">
           <ToggleHeader
             toggleHeader={toggleHeaderHandler}
@@ -40,7 +40,12 @@ const Chat: React.FC<IUsersType> = ({ users }) => {
           <Groups />
         )}
       </div>
-      {chatWithUser && <Messenger user={chatWithUser} />}
+      {chatWithUser && (
+        <Messenger
+          hideChatWithUser={() => setChatWithUser(undefined)}
+          user={chatWithUser}
+        />
+      )}
     </div>
   );
 };
