@@ -83,7 +83,7 @@ const Auth = () => {
         </div>
         <div className="p-12">
           <form onSubmit={createUserHandler}>
-            <ImageUpload />
+            {!loginMode && <ImageUpload />}
             <Input
               onChange={changeValHandler}
               value={inputVals.email}
