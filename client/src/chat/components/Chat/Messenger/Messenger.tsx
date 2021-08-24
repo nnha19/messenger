@@ -1,20 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { IUserType } from "../../../../types/types";
+import { io } from "socket.io-client";
+import { AuthContext } from "../../../../context/authContext";
 
 import Button from "../../../../common/button/button";
 import Input from "../../../../common/input/Input";
 import SingleUser from "../Users/SingleUser/SingleUser";
+import { Socket } from "dgram";
 
 const Messenger = (props: {
   user: IUserType["user"];
   hideChatWithUser: () => void;
 }) => {
+  const authContext = useContext(AuthContext);
+  const curUser = authContext?.curUser;
   const { user, hideChatWithUser } = props;
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState<string[]>([]);
+
+  const socket = io(`http://localhost:5000`);
+
+  useEffect(() => {
+    socket.emit("joinRoom", {
+      room: "user-room",
+      username: curUser?.username,
+      userId: curUser?._id,
+    });
+  }, [curUser]);
+
+  useEffect(() => {
+    socket.on("message", (msg) => {
+      console.log(msg);
+    });
+  }, []);
 
   const typingMsgHandler = (e: any): void => {
     setMessage(e.target.value);
+  };
+
+  const sendMessageHandler = (e: any) => {
+    e.preventDefault();
+    const userId = curUser?._id;
+    const username = curUser?.username;
+    socket.emit("deliverMessage", { username, userId, message });
   };
 
   return (
@@ -29,7 +58,7 @@ const Messenger = (props: {
       <div className="h-96 px-8 py-4">Messages</div>
       <hr />
       <div className="px-8 py-4">
-        <form className="flex">
+        <form onSubmit={sendMessageHandler} className="flex">
           <Input
             onChange={typingMsgHandler}
             type="text"
