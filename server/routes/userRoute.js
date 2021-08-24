@@ -58,15 +58,17 @@ route.post("/", imageUpload.single("avatar"), async (req, res) => {
 
 route.post("/login", async (req, res) => {
   try {
-    const { email, password, activeNow } = req.body;
+    const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (user) {
       bcrypt.compare(password, user.password, async (err, result) => {
         if (result) {
-          const { username, email, _id } = user;
+          const { username, email, _id, img, activeNow } = user;
           user.activeNow = true;
           await user.save();
-          res.status(200).json({ username, email, _id, activeNow });
+          res
+            .status(200)
+            .json({ username, email, _id, activeNow, img, activeNow });
         } else {
           res.status(400).json({ error: "Incorrect Password" });
         }

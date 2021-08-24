@@ -11,7 +11,6 @@ import Nav from "./common/Nav/Nav";
 function App() {
   const history = useHistory();
   const [curUser, setCurUser] = useState<IUserType["user"]>();
-
   const isAuth = !!curUser;
 
   const signInHandler = (userObj: IUserType["user"]) => {

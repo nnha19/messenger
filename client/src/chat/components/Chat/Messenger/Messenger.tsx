@@ -7,7 +7,7 @@ import { AuthContext } from "../../../../context/authContext";
 import Button from "../../../../common/button/button";
 import Input from "../../../../common/input/Input";
 import SingleUser from "../Users/SingleUser/SingleUser";
-import { Socket } from "dgram";
+import DisplayMessages from "./DisplayMessages/DisplayMessages";
 
 const Messenger = (props: {
   user: IUserType["user"];
@@ -17,23 +17,24 @@ const Messenger = (props: {
   const curUser = authContext?.curUser;
   const { user, hideChatWithUser } = props;
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<any[]>([]);
 
   const socket = io(`http://localhost:5000`);
 
   useEffect(() => {
     socket.emit("joinRoom", {
       room: "user-room",
-      username: curUser?.username,
-      userId: curUser?._id,
+      user: curUser,
     });
   }, [curUser]);
 
   useEffect(() => {
     socket.on("message", (msg) => {
-      console.log(msg);
+      setMessages((prev) => [...prev, msg]);
     });
   }, []);
+
+  console.log(messages);
 
   const typingMsgHandler = (e: any): void => {
     setMessage(e.target.value);
@@ -41,9 +42,7 @@ const Messenger = (props: {
 
   const sendMessageHandler = (e: any) => {
     e.preventDefault();
-    const userId = curUser?._id;
-    const username = curUser?.username;
-    socket.emit("deliverMessage", { username, userId, message });
+    socket.emit("deliverMessage", { user: curUser, message });
   };
 
   return (
@@ -55,7 +54,7 @@ const Messenger = (props: {
       ></i>
       <SingleUser user={user} />
       <hr />
-      <div className="h-96 px-8 py-4">Messages</div>
+      <DisplayMessages curUser={curUser} messages={messages} />
       <hr />
       <div className="px-8 py-4">
         <form onSubmit={sendMessageHandler} className="flex">

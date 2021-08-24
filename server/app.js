@@ -30,23 +30,24 @@ mongoose
 const userRoute = require("./routes/userRoute");
 
 io.on("connection", (socket) => {
-  socket.on("joinRoom", ({ room, username, userId }) => {
-    const user = addUser(userId, username, room);
-    if (user) {
-      socket.join(user.room);
+  socket.on("joinRoom", ({ room, user }) => {
+    const addedUser = addUser(user, room);
+    console.log(addedUser);
+    if (addedUser) {
+      socket.join(addedUser.room);
       socket.emit("message", {
         username: "Admin",
-        message: `Welcome to ${user.room}, ${user.username}`,
+        message: `Welcome to ${addedUser.room}, ${user.username}`,
       });
-      socket.broadcast.to(user.room).emit("message", {
+      socket.broadcast.to(addedUser.room).emit("message", {
         username: "Admin",
-        message: `Guys, ${user.username} joined ${user.room}`,
+        message: `Guys, ${addedUser.username} joined ${addedUser.room}`,
       });
     }
   });
-  socket.on("deliverMessage", ({ username, userId, message }) => {
-    const user = getUser(userId);
-    user && io.to(user.room).emit("message", { username, message });
+  socket.on("deliverMessage", ({ user, message }) => {
+    const Founduser = getUser(user._id);
+    Founduser && io.to(Founduser.room).emit("message", { ...user, message });
   });
 });
 
