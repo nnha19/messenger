@@ -34,18 +34,16 @@ const Messenger = (props: {
     });
   }, []);
 
-  console.log(messages);
-
   const typingMsgHandler = (e: any): void => {
     setMessage(e.target.value);
   };
 
   const sendMessageHandler = (e: any) => {
     e.preventDefault();
-    socket.emit("deliverMessage", { user: curUser, message });
+    socket.emit("deliverMessage", { user: curUser, message }, setMessage(""));
   };
 
-  return (
+  return curUser ? (
     <div className="w-96 shadow border-2 relative">
       <i
         onClick={hideChatWithUser}
@@ -82,7 +80,7 @@ const Messenger = (props: {
         </form>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default Messenger;

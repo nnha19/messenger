@@ -32,17 +32,8 @@ const userRoute = require("./routes/userRoute");
 io.on("connection", (socket) => {
   socket.on("joinRoom", ({ room, user }) => {
     const addedUser = addUser(user, room);
-    console.log(addedUser);
     if (addedUser) {
       socket.join(addedUser.room);
-      socket.emit("message", {
-        username: "Admin",
-        message: `Welcome to ${addedUser.room}, ${user.username}`,
-      });
-      socket.broadcast.to(addedUser.room).emit("message", {
-        username: "Admin",
-        message: `Guys, ${addedUser.username} joined ${addedUser.room}`,
-      });
     }
   });
   socket.on("deliverMessage", ({ user, message }) => {
