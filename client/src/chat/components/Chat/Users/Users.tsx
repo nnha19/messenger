@@ -23,7 +23,7 @@ const Users: React.FC<IProps> = ({ users, setChatWithUser }) => {
       />
     );
   });
-  return <div className="h-md overflow-y-scroll">{displayUsers}</div>;
+  return <div className="h-md overflow-y-auto">{displayUsers}</div>;
 };
 
 export default Users;

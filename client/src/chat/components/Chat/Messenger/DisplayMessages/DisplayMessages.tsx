@@ -35,7 +35,7 @@ const DisplayMessages: React.FC<IProps> = ({ messages, curUser }) => {
       </div>
     );
   });
-  return <div className="h-96 px-8 py-4 overflow-y-scroll">{msgOutput}</div>;
+  return <div className="h-96 px-8 py-4 overflow-y-auto">{msgOutput}</div>;
 };
 
 export default DisplayMessages;
