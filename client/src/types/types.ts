@@ -19,11 +19,13 @@ export interface IAuthContext {
   curUser: IUserType["user"] | undefined;
 }
 
+export interface IGroup {
+  name: string;
+  img: string;
+  members: IUsersType["users"];
+  type: string;
+}
+
 export interface IGroups {
-  groups: {
-    name: string;
-    img: string;
-    members: IUsersType["users"];
-    type: string;
-  }[];
+  groups: IGroup[];
 }

@@ -2,6 +2,8 @@ import React from "react";
 import AvatarImage from "../../../../../common/AvatarImage/AvatarImage";
 
 import { IGroups } from "../../../../../types/types";
+import GroupType from "./GroupType/GroupType";
+import ThreeAvatarImgs from "./ThreeAvatarImgs/ThreeAvatarImgs";
 
 interface IProps {
   groups: IGroups["groups"];
@@ -9,28 +11,6 @@ interface IProps {
 
 const GroupList: React.FC<IProps> = ({ groups }) => {
   const groupListOutput = groups.map((group): JSX.Element => {
-    let threeMemImgURL: string[] = [];
-
-    for (let i = 0; i < group.members.length; i++) {
-      if (threeMemImgURL.length === 3) {
-        break;
-      }
-      threeMemImgURL.push(group.members[i].img);
-    }
-
-    const memberImgs = threeMemImgURL.map((imgURL) => {
-      return (
-        <AvatarImage
-          imgURL={`http://localhost:5000/${imgURL}`}
-          style={{
-            height: "2rem",
-            width: "2rem",
-            marginRight: threeMemImgURL.length > 1 && "-10px",
-          }}
-        />
-      );
-    });
-
     return (
       <div className="mb-4 cursor-pointer  p-2 py-4 border-2">
         <div className="flex items-center">
@@ -39,11 +19,14 @@ const GroupList: React.FC<IProps> = ({ groups }) => {
             imgURL={`http://localhost:5000/${group.img}`}
           />
           <div className="ml-4">
-            <h4 className="font-medium text-xl mb-2">{group.name}</h4>
+            <h4 className="font-medium text-xl mb-4">{group.name}</h4>
             <div className="flex items-center">
-              <div className="flex mr-4">{memberImgs}</div>
+              <div className="flex mr-4">
+                <ThreeAvatarImgs group={group} />
+              </div>
               <span>{group.members.length} Members</span>
             </div>
+            <GroupType type={group.type} />
           </div>
         </div>
       </div>
