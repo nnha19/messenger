@@ -24,5 +24,6 @@ export interface IGroups {
     name: string;
     img: string;
     members: IUsersType["users"];
+    type: string;
   }[];
 }

@@ -7,7 +7,7 @@ interface IProps {
   groups: IGroups["groups"];
 }
 
-const GroupList: React.FC<IGroups> = ({ groups }) => {
+const GroupList: React.FC<IProps> = ({ groups }) => {
   const groupListOutput = groups.map((group): JSX.Element => {
     let threeMemImgURL: string[] = [];
 
@@ -21,7 +21,7 @@ const GroupList: React.FC<IGroups> = ({ groups }) => {
     const memberImgs = threeMemImgURL.map((imgURL) => {
       return (
         <AvatarImage
-          imgURL={imgURL}
+          imgURL={`http://localhost:5000/${imgURL}`}
           style={{
             height: "2rem",
             width: "2rem",
@@ -34,7 +34,10 @@ const GroupList: React.FC<IGroups> = ({ groups }) => {
     return (
       <div className="mb-4 cursor-pointer  p-2 py-4 border-2">
         <div className="flex items-center">
-          <AvatarImage style={{ alignSelf: "flex-start" }} imgURL={group.img} />
+          <AvatarImage
+            style={{ alignSelf: "flex-start" }}
+            imgURL={`http://localhost:5000/${group.img}`}
+          />
           <div className="ml-4">
             <h4 className="font-medium text-xl mb-2">{group.name}</h4>
             <div className="flex items-center">
