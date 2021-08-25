@@ -23,6 +23,7 @@ const io = socketIO(server, {
 mongoose
   .connect(process.env.CONNECT_DB, {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
   })
   .then(() => console.log("connected to mongoDB"))
   .catch((err) => console.log(err));

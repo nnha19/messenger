@@ -18,3 +18,11 @@ export interface IAuthContext {
   signOut: () => void;
   curUser: IUserType["user"] | undefined;
 }
+
+export interface IGroups {
+  groups: {
+    name: string;
+    img: string;
+    members: IUsersType["users"];
+  }[];
+}
