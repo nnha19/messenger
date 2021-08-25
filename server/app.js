@@ -29,6 +29,7 @@ mongoose
   .catch((err) => console.log(err));
 
 const userRoute = require("./routes/userRoute");
+const groupRoute = require("./routes/groupRoute");
 
 io.on("connection", (socket) => {
   socket.on("joinRoom", ({ room, user }) => {
@@ -46,6 +47,7 @@ io.on("connection", (socket) => {
 const PORT = process.env.PORT || 5000;
 
 app.use("/user", userRoute);
+app.use("/group", groupRoute);
 
 server.listen(PORT, () => {
   console.log(`Server has started on port ${PORT}`);
