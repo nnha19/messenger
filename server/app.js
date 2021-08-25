@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 const socketIO = require("socket.io");
-const { addUser, getUser } = require("./socket");
+const { addUser, getUser } = require("./socket/socketUsers");
 dotenv.config();
 
 const app = express();
@@ -41,6 +41,22 @@ io.on("connection", (socket) => {
   socket.on("deliverMessage", ({ user, message }) => {
     const Founduser = getUser(user._id);
     Founduser && io.to(Founduser.room).emit("message", { ...user, message });
+  });
+
+  //Group
+  socket.on("joinGroup", ({ user, group }) => {
+    socket.join(group.name);
+    socket.emit("message", {
+      username: "admin",
+      message: `Welcome to our group ${group.name}, ${user.username}`,
+    });
+    socket.broadcast.to(group.name).emit("message", {
+      username: "admin",
+      message: `${user.username} has joined the group.`,
+    });
+  });
+  socket.on("sendMessage", ({ user, message }) => {
+    io.to(user.room).emit("message", { ...user.user, message });
   });
 });
 
