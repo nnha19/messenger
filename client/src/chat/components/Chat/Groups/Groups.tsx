@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 
-import { IGroups } from "../../../../types/types";
+import { IGroups, IGroup } from "../../../../types/types";
 import axios from "axios";
 
 import GroupList from "./GroupList/GroupList";
 
-const Groups = () => {
+interface IProps {
+  setChatInGroup(group: IGroup): void;
+}
+
+const Groups: React.FC<IProps> = ({ setChatInGroup }) => {
   const [groups, setGroups] = useState<IGroups["groups"]>([]);
 
   useEffect(() => {
@@ -18,7 +22,7 @@ const Groups = () => {
 
   return (
     <div className="h-md overflow-y-auto">
-      <GroupList groups={groups} />
+      <GroupList setChatInGroup={setChatInGroup} groups={groups} />
     </div>
   );
 };

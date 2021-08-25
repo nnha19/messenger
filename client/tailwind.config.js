@@ -11,6 +11,9 @@ module.exports = {
       height: {
         md: "31rem",
       },
+      width: {
+        md: "31rem",
+      },
     },
   },
   variants: {

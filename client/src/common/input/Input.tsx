@@ -22,7 +22,7 @@ const Input: React.FC<IProps> = ({
   onChange,
 }) => {
   return (
-    <div style={style} className="mb-4">
+    <div style={style} className="mb-4 w-4/5">
       {label && <label className="block mb-2">{label}</label>}
       <input
         onChange={(e) => onChange(e, name)}
