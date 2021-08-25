@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Input from "../../../../../common/input/Input";
 import Button from "../../../../../common/button/button";
+import { isContext } from "vm";
 
 interface IProps {
   sendMessage(message: string): void;
@@ -30,7 +31,7 @@ const SendMessage: React.FC<IProps> = ({ sendMessage, style }) => {
           name="message"
           value={message}
           placeholder="Type here"
-          style={{ marginBottom: "0" }}
+          style={{ marginBottom: "0", ...style }}
         />
         <div className="flex items-start">
           <Button

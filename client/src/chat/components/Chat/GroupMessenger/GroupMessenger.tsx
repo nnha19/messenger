@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { isContext } from "vm";
+import React, { useState, useContext } from "react";
 import AvatarImage from "../../../../common/AvatarImage/AvatarImage";
 import { AuthContext } from "../../../../context/authContext";
 
@@ -8,17 +7,8 @@ import DisplayMessages from "../Messenger/DisplayMessages/DisplayMessages";
 import SendMessage from "../Messenger/SendMessage/SendMessage";
 
 function GroupMessenger(props: { group: IGroup }) {
+  const [messages, setMessages] = useState([]);
   const authContext = useContext(AuthContext);
-  const messages = [
-    {
-      message: "Hello everyone",
-      username: "Nyi Nyi",
-      email: "nyinyi@gmail.com",
-      img: "uploads/avatar-1629707888032-863589361.jpg",
-      activeNow: true,
-      _id: "123456",
-    },
-  ];
 
   const { group } = props;
   const sendMessageHandler = (message: string) => {
