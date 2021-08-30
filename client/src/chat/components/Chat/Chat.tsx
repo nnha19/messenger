@@ -25,6 +25,16 @@ const Chat: React.FC<IUsersType> = ({ users }) => {
     setChatInGroup(group);
     setChatWithUser(undefined);
   };
+
+  const sendMsgInGroupHandler = (
+    message: string,
+    sender: IUserType["user"]
+  ) => {
+    const updateGroup = { ...chatInGroup };
+    updateGroup.messages?.push({ sender, message });
+    setChatInGroup(updateGroup);
+  };
+
   return (
     <div className=" flex p-12 items-start">
       <div className="shadow-md mx-24 pb-4 w-80">
@@ -53,7 +63,12 @@ const Chat: React.FC<IUsersType> = ({ users }) => {
           user={chatWithUser}
         />
       )}
-      {chatInGroup && <GroupMessenger group={chatInGroup} />}
+      {chatInGroup && (
+        <GroupMessenger
+          sendMsgInGroup={sendMsgInGroupHandler}
+          group={chatInGroup}
+        />
+      )}
     </div>
   );
 };

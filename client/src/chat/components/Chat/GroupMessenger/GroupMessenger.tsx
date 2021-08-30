@@ -1,18 +1,40 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../../../context/authContext";
-import { IGroup } from "../../../../types/types";
+import { IGroup, IUserType } from "../../../../types/types";
+import axios from "axios";
 import { io } from "socket.io-client";
 
 import AvatarImage from "../../../../common/AvatarImage/AvatarImage";
 import DisplayMessages from "../Messenger/DisplayMessages/DisplayMessages";
 import SendMessage from "../Messenger/SendMessage/SendMessage";
 
-function GroupMessenger(props: { group: IGroup }) {
+function GroupMessenger(props: {
+  group: IGroup;
+  sendMsgInGroup: (
+    message: string,
+    sender: IUserType["user"] | undefined
+  ) => void;
+}) {
   const authContext = useContext(AuthContext);
-  const { group } = props;
+  const { group, sendMsgInGroup } = props;
 
-  const sendMessageHandler = () => {};
-  console.log(group);
+  const sendMessageHandler = async (message: string) => {
+    try {
+      const res = await axios({
+        url: `http://localhost:5000/group/message`,
+        method: "POST",
+        data: {
+          groupId: group._id,
+          sender: authContext?.curUser?._id,
+          message,
+        },
+      });
+      sendMsgInGroup(message, authContext?.curUser);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const activeNowMembers = group.members.filter((member) => member.activeNow);
   return (
     <div className="w-md border-2">

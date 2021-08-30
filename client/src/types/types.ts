@@ -32,6 +32,7 @@ export interface IGroup {
   messages: IMessages["messages"];
   type: string;
   img: string;
+  _id: string;
 }
 
 export interface IGroups {

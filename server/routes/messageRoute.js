@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const router = require("express").Router();
 const Group = require("../Models/Group");
 
