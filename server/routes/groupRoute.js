@@ -6,6 +6,7 @@ const imageUpload = require("../middlewares/multer");
 route.get("/", async (req, res) => {
   try {
     Group.find({})
+      .populate("messages.sender")
       .populate("members")
       .exec(function (err, groups) {
         if (err) {

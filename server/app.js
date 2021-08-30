@@ -30,17 +30,14 @@ mongoose
 
 const userRoute = require("./routes/userRoute");
 const groupRoute = require("./routes/groupRoute");
+const messageRoute = require("./routes/messageRoute");
 
 io.on("connection", (socket) => {
-  socket.on("joinRoom", ({ room, user }) => {
-    const addedUser = addUser(user, room);
-    if (addedUser) {
-      socket.join(addedUser.room);
-    }
-  });
-  socket.on("deliverMessage", ({ user, message }) => {
-    const Founduser = getUser(user._id);
-    Founduser && io.to(Founduser.room).emit("message", { ...user, message });
+  //Users
+
+  socket.on("send-message", (receiverId, message) => {
+    console.log(receiverId);
+    io.to(`AoGuqzfoPSnUrG-fAAAr`).emit("receive-message", receiverId, message);
   });
 
   //Group
@@ -64,6 +61,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use("/user", userRoute);
 app.use("/group", groupRoute);
+app.use(messageRoute);
 
 server.listen(PORT, () => {
   console.log(`Server has started on port ${PORT}`);

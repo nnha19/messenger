@@ -10,25 +10,9 @@ import SendMessage from "../Messenger/SendMessage/SendMessage";
 function GroupMessenger(props: { group: IGroup }) {
   const [messages, setMessages] = useState<any>([]);
   const authContext = useContext(AuthContext);
-  const socket = io(`http://localhost:5000`);
   const { group } = props;
 
-  useEffect(() => {
-    socket.emit("joinGroup", { user: authContext?.curUser, group });
-    socket.on("message", (msg) => {
-      setMessages((prev: any) => [...prev, msg]);
-    });
-  }, [group]);
-
-  const sendMessageHandler = (message: string) => {
-    const user = {
-      user: authContext?.curUser,
-      room: group.name,
-    };
-    socket.emit("sendMessage", { user, message });
-  };
-
-  console.log(messages);
+  const sendMessageHandler = () => {};
 
   const activeNowMembers = group.members.filter((member) => member.activeNow);
   return (

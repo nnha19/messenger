@@ -20,20 +20,19 @@ const Messenger = (props: {
   const socket = io(`http://localhost:5000`);
 
   useEffect(() => {
-    socket.emit("joinRoom", {
-      room: "user-room",
-      user: curUser,
-    });
-  }, [curUser]);
-
-  useEffect(() => {
+    socket.on("connect", () => console.log(`Your id is ${socket.id}`));
     socket.on("message", (msg) => {
       setMessages((prev) => [...prev, msg]);
     });
   }, []);
 
   const sendMessageHandler = (message: string) => {
-    socket.emit("deliverMessage", { user: curUser, message });
+    socket.emit("send-message", user._id, message);
+    socket.on("receive-message", (receiverId, message) => {
+      console.log(receiverId);
+      console.log(message);
+    });
+    console.log(message);
   };
 
   return curUser ? (
