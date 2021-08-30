@@ -1,32 +1,25 @@
 import React from "react";
 import AvatarImage from "../../../../../common/AvatarImage/AvatarImage";
 
-import { IUserType } from "../../../../../types/types";
+import { IUserType, IMessages } from "../../../../../types/types";
 
 interface IProps {
-  messages: {
-    message: string;
-    username: string;
-    email: string;
-    img: string;
-    activeNow: boolean;
-    _id: string;
-  }[];
+  messages: IMessages["messages"];
   curUser: IUserType["user"];
 }
 
 const DisplayMessages: React.FC<IProps> = ({ messages, curUser }) => {
   const msgOutput = messages.map((message) => {
-    const senderIsCurUser = curUser._id === message._id;
+    const senderIsCurUser = curUser._id === message.sender._id;
     let textStyle = senderIsCurUser
-      ? `bg-primary text-white ml-auto w-max text-center`
+      ? `bg-primary text-white ml-auto w-max `
       : "ml-4 bg-gray-200";
     return (
       <div className={`flex mb-4 items-center`}>
-        {message.img && !senderIsCurUser && (
+        {!senderIsCurUser && (
           <AvatarImage
             style={{ height: "3rem", width: "3rem" }}
-            imgURL={`http://localhost:5000/${message.img}`}
+            imgURL={`http://localhost:5000/${message.sender.img}`}
           />
         )}
         <div className={`${textStyle} rounded-2xl p-4 py-2`}>

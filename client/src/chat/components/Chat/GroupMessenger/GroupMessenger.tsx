@@ -8,25 +8,27 @@ import DisplayMessages from "../Messenger/DisplayMessages/DisplayMessages";
 import SendMessage from "../Messenger/SendMessage/SendMessage";
 
 function GroupMessenger(props: { group: IGroup }) {
-  const [messages, setMessages] = useState<any>([]);
   const authContext = useContext(AuthContext);
   const { group } = props;
 
   const sendMessageHandler = () => {};
-
-  const activeNowMembers = group.members.filter((member) => member.activeNow);
+  console.log(group);
+  // const activeNowMembers = group.members.filter((member) => member.activeNow);
   return (
     <div className="w-md border-2">
       <div className="px-12 py-4  flex items-center">
         <AvatarImage imgURL={`http://localhost:5000/${group.img}`} />
         <div className="ml-8">
           <h2 className="text-lg font-medium">{group.name}</h2>
-          <span>{activeNowMembers.length} users Active Now</span>
+          {/* <span>{activeNowMembers.length} users Active Now</span> */}
         </div>
       </div>
       <hr />
       {authContext?.curUser && (
-        <DisplayMessages curUser={authContext.curUser} messages={messages} />
+        <DisplayMessages
+          curUser={authContext.curUser}
+          messages={group.messages}
+        />
       )}
       <hr />
       <SendMessage style={{ width: "80%" }} sendMessage={sendMessageHandler} />
