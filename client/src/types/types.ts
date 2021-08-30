@@ -28,7 +28,7 @@ export interface IMessages {
 
 export interface IGroup {
   name: string;
-  members: object;
+  members: IUserType["user"][];
   messages: IMessages["messages"];
   type: string;
   img: string;
