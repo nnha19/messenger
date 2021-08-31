@@ -15,7 +15,7 @@ const DisplayMessages: React.FC<IProps> = ({ messages, curUser }) => {
       ? `bg-primary text-white ml-auto w-max `
       : "ml-4 bg-gray-200";
     return (
-      <div className={`flex mb-4 items-center`}>
+      <div key={message._id} className={`flex mb-4 items-center`}>
         {!senderIsCurUser && (
           <AvatarImage
             style={{ height: "3rem", width: "3rem" }}

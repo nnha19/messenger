@@ -14,6 +14,7 @@ const GroupList: React.FC<IProps> = ({ groups, setChatInGroup }) => {
   const groupListOutput = groups.map((group): JSX.Element => {
     return (
       <div
+        key={group._id}
         onClick={() => setChatInGroup(group)}
         className="mb-4 cursor-pointer  p-2 py-4 border-2"
       >

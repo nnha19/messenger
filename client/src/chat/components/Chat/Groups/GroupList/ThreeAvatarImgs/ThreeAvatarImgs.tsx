@@ -13,9 +13,10 @@ const ThreeAvatarImgs = (props: { group: IGroup }) => {
     }
     threeMemImgURL.push(group.members[i].img);
   }
-  const memberImgs = threeMemImgURL.map((imgURL) => {
+  const memberImgs = threeMemImgURL.map((imgURL, i) => {
     return (
       <AvatarImage
+        key={i}
         imgURL={`http://localhost:5000/${imgURL}`}
         style={{
           height: "2rem",

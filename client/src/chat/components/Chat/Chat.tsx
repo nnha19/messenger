@@ -29,7 +29,7 @@ const Chat: React.FC<IUsersType> = ({ users }) => {
   const sendMsgInGroupHandler = (
     message: string,
     sender: IUserType["user"]
-  ) => {
+  ): void => {
     const updateGroup = { ...chatInGroup };
     updateGroup.messages?.push({ sender, message });
     setChatInGroup(updateGroup);

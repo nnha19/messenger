@@ -20,7 +20,6 @@ const SingleUser: React.FC<IProps> = ({
       onClick={() => {
         setChatWithUser && setChatWithUser(user);
       }}
-      key={user._id}
       className="mb-2 p-4 flex cursor-pointer"
     >
       <div>

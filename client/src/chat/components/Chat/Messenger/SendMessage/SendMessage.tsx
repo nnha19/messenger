@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Input from "../../../../../common/input/Input";
 import Button from "../../../../../common/button/button";
-import { isContext } from "vm";
 
+let socket;
 interface IProps {
   sendMessage(message: string): void;
   style?: object;

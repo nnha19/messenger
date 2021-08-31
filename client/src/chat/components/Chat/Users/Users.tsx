@@ -12,11 +12,11 @@ interface IProps {
 
 const Users: React.FC<IProps> = ({ users, setChatWithUser }) => {
   const context = useContext(AuthContext);
-
   const displayUsers = users.map((user) => {
     const userIsCurUser = context?.curUser?._id === user._id && "(You)";
     return (
       <SingleUser
+        key={user._id}
         setChatWithUser={setChatWithUser}
         user={user}
         userIsCurUser={userIsCurUser}
