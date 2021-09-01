@@ -35,7 +35,6 @@ const messageRoute = require("./routes/messageRoute");
 io.on("connection", (socket) => {
   socket.on("join-group", ({ user, room }) => {
     socket.join(room);
-    io.to(room).emit("join-group", `${user.username} joined ${room}`);
   });
   socket.on("send-message", ({ user, message, room }) => {
     io.to(room).emit("send-message", { user, message, room });

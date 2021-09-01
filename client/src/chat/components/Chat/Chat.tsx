@@ -9,7 +9,6 @@ import Messenger from "./Messenger/Messenger";
 import ToggleHeader from "./ToggleHeader/ToggleHeader";
 import Users from "./Users/Users";
 import { AuthContext } from "../../../context/authContext";
-import { setgroups } from "process";
 
 let socket: any;
 
@@ -38,31 +37,42 @@ const Chat = () => {
 
   const sendMsgInGroupHandler = (
     message: string,
-    sender: IUserType["user"]
+    sender: IUserType["user"],
+    room: string
   ): void => {
     socket.emit("send-message", {
       user: authContext?.curUser,
       message,
-      room: groups[0].name,
+      room,
     });
   };
 
   useEffect(() => {
     socket = io(`http://localhost:5000`);
-    if (groups.length > 0) {
-      socket.emit("join-group", {
-        user: authContext?.curUser,
-        room: groups[0].name,
-      });
-    }
-    socket.on("send-message", ({ user, message, room }) => {
-      const updateGroups = [...groups];
-      const updateGroup = updateGroups.find((g) => g.name === room);
-      const i = updateGroups.findIndex((g) => g.name === room);
-      updateGroup.messages.push({ sender: user, message });
-      updateGroups[i] = updateGroup;
-      setGroups(updateGroups);
+    const rooms = groups.map((g: IGroup) => g.name);
+    socket.emit("join-group", {
+      user: authContext?.curUser,
+      room: rooms,
     });
+    socket.on(
+      "send-message",
+      ({
+        user,
+        message,
+        room,
+      }: {
+        user: IUserType["user"];
+        message: string;
+        room: string;
+      }) => {
+        const updateGroups = [...groups];
+        const updateGroup = updateGroups.find((g) => g.name === room);
+        const i = updateGroups.findIndex((g) => g.name === room);
+        updateGroup.messages.push({ sender: user, message });
+        updateGroups[i] = updateGroup;
+        setGroups(updateGroups);
+      }
+    );
   }, []);
 
   return (
