@@ -26,7 +26,7 @@ const ChatPage = () => {
     })();
   }, []);
 
-  return groups.length > 0 && users.length > 0 ? (
+  return (
     <UserAngGroupContext.Provider
       value={{ users, groups, setUsers, setGroups }}
     >
@@ -34,7 +34,7 @@ const ChatPage = () => {
         <Chat />
       </div>
     </UserAngGroupContext.Provider>
-  ) : null;
+  );
 };
 
 export default ChatPage;

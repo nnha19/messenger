@@ -15,8 +15,7 @@ let socket: any;
 const Chat = () => {
   const authContext = useContext(AuthContext);
 
-  const { users, groups, setGroups, setUsers } =
-    useContext(UserAngGroupContext);
+  useContext(UserAngGroupContext);
   const [activeHeader, setActiveHeader] = useState("Users");
   const [chatWithUser, setChatWithUser] = useState<IUserType["user"]>();
   const [chatInGroup, setChatInGroup] = useState<IGroup>();
@@ -49,30 +48,6 @@ const Chat = () => {
 
   useEffect(() => {
     socket = io(`http://localhost:5000`);
-    const rooms = groups.map((g: IGroup) => g.name);
-    socket.emit("join-group", {
-      user: authContext?.curUser,
-      room: rooms,
-    });
-    socket.on(
-      "send-message",
-      ({
-        user,
-        message,
-        room,
-      }: {
-        user: IUserType["user"];
-        message: string;
-        room: string;
-      }) => {
-        const updateGroups = [...groups];
-        const updateGroup = updateGroups.find((g) => g.name === room);
-        const i = updateGroups.findIndex((g) => g.name === room);
-        updateGroup.messages.push({ sender: user, message });
-        updateGroups[i] = updateGroup;
-        setGroups(updateGroups);
-      }
-    );
   }, []);
 
   return (
@@ -92,9 +67,9 @@ const Chat = () => {
         </div>
         <hr />
         {activeHeader === "Users" ? (
-          <Users setChatWithUser={setChatWithUserHandler} users={users} />
+          <Users setChatWithUser={setChatWithUserHandler} />
         ) : (
-          <Groups setChatInGroup={setChatInGroupHandler} />
+          <Groups socket={socket} setChatInGroup={setChatInGroupHandler} />
         )}
       </div>
       {chatWithUser && (
