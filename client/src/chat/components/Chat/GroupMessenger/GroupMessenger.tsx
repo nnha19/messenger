@@ -10,10 +10,7 @@ import SendMessage from "../Messenger/SendMessage/SendMessage";
 
 function GroupMessenger(props: {
   group: IGroup;
-  sendMsgInGroup: (
-    message: string,
-    sender: IUserType["user"] | undefined
-  ) => void;
+  sendMsgInGroup: (message: string, sender: IUserType["user"]) => void;
 }) {
   const authContext = useContext(AuthContext);
   const { group, sendMsgInGroup } = props;
@@ -29,7 +26,7 @@ function GroupMessenger(props: {
           message,
         },
       });
-      sendMsgInGroup(message, authContext?.curUser);
+      authContext?.curUser && sendMsgInGroup(message, authContext?.curUser);
     } catch (err) {
       console.log(err);
     }

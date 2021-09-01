@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IUsersType, IUserType, IGroup } from "../../../types/types";
+
 import GroupMessenger from "./GroupMessenger/GroupMessenger";
 import Groups from "./Groups/Groups";
 import Messenger from "./Messenger/Messenger";
-
 import ToggleHeader from "./ToggleHeader/ToggleHeader";
 import Users from "./Users/Users";
 
@@ -30,7 +30,7 @@ const Chat: React.FC<IUsersType> = ({ users }) => {
     message: string,
     sender: IUserType["user"]
   ): void => {
-    const updateGroup = { ...chatInGroup };
+    const updateGroup: any = { ...chatInGroup };
     updateGroup.messages?.push({ sender, message });
     setChatInGroup(updateGroup);
   };
