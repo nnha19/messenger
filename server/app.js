@@ -33,27 +33,12 @@ const groupRoute = require("./routes/groupRoute");
 const messageRoute = require("./routes/messageRoute");
 
 io.on("connection", (socket) => {
-  //Users
-
-  socket.on("send-message", (receiverId, message) => {
-    console.log(receiverId);
-    io.to(`AoGuqzfoPSnUrG-fAAAr`).emit("receive-message", receiverId, message);
+  socket.on("join-group", ({ user, room }) => {
+    socket.join(room);
+    io.to(room).emit("join-group", `${user.username} joined ${room}`);
   });
-
-  //Group
-  socket.on("joinGroup", ({ user, group }) => {
-    socket.join(group.name);
-    socket.emit("message", {
-      username: "admin",
-      message: `Welcome to our group ${group.name}, ${user.username}`,
-    });
-    socket.broadcast.to(group.name).emit("message", {
-      username: "admin",
-      message: `${user.username} has joined the group.`,
-    });
-  });
-  socket.on("sendMessage", ({ user, message }) => {
-    io.to(user.room).emit("message", { ...user.user, message });
+  socket.on("send-message", ({ user, message, room }) => {
+    io.to(room).emit("send-message", { user, message, room });
   });
 });
 

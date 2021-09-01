@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 
 import { IGroups, IGroup } from "../../../../types/types";
-import axios from "axios";
+import { UserAngGroupContext } from "../../../../context/userAndGroupContext";
 
 import GroupList from "./GroupList/GroupList";
 
@@ -10,16 +10,7 @@ interface IProps {
 }
 
 const Groups: React.FC<IProps> = ({ setChatInGroup }) => {
-  const [groups, setGroups] = useState<IGroups["groups"]>([]);
-
-  useEffect(() => {
-    (async () => {
-      const resp = await axios.get("http://localhost:5000/group");
-      const group = resp.data;
-      setGroups(group);
-    })();
-  }, []);
-
+  const groups = useContext(UserAngGroupContext).groups;
   return (
     <div className="h-md overflow-y-auto">
       <GroupList setChatInGroup={setChatInGroup} groups={groups} />
