@@ -5,6 +5,7 @@ export interface IUserType {
     _id: string;
     img: string;
     activeNow: boolean;
+    groups: string[];
   };
 }
 

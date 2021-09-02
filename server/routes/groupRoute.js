@@ -1,9 +1,9 @@
-const route = require("express").Router();
+const router = require("express").Router();
 const Group = require("../Models/Group");
 const User = require("../Models/User");
 const imageUpload = require("../middlewares/multer");
 
-route.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     Group.find({})
       .populate("messages.sender")
@@ -20,7 +20,7 @@ route.get("/", async (req, res) => {
   }
 });
 
-route.post("/", imageUpload.single("groupImg"), async (req, res) => {
+router.post("/", imageUpload.single("groupImg"), async (req, res) => {
   try {
     const { name, type } = req.body;
     const groupNameExist = await Group.findOne({ name });
@@ -35,19 +35,30 @@ route.post("/", imageUpload.single("groupImg"), async (req, res) => {
         type,
         img: req.file.path,
         members: [],
+        messages: [],
       });
-      // *********  Demo
-      const users = await User.find({});
-      users.forEach((user) => {
-        newGroup.members.push(user._id);
-      });
-      await newGroup.save();
-      // **********
       res.status(200).json(newGroup);
     }
   } catch (err) {
+    console.log(err);
     res.status(400).json({ err });
   }
 });
 
-module.exports = route;
+//add members to group
+router.post("/member", async (req, res) => {
+  try {
+    const { userId, groupId } = req.body;
+    const group = await Group.findById(groupId);
+    group.members.push(userId);
+    await group.save();
+    const user = await User.findById(userId);
+    user.groups.push(groupId);
+    await user.save();
+    res.status(200).json(group);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+module.exports = router;

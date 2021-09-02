@@ -18,6 +18,8 @@ function App() {
     history.push("/chat");
   };
 
+  console.log(curUser);
+
   const signOutHandler = () => {
     setCurUser(undefined);
   };

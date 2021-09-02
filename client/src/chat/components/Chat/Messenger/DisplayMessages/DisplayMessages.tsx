@@ -1,7 +1,9 @@
 import React from "react";
-import AvatarImage from "../../../../../common/AvatarImage/AvatarImage";
-
 import { IUserType, IMessages } from "../../../../../types/types";
+
+import ScrollToBottom from "react-scroll-to-bottom";
+
+import AvatarImage from "../../../../../common/AvatarImage/AvatarImage";
 
 interface IProps {
   messages: IMessages["messages"];

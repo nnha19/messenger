@@ -36,9 +36,12 @@ function GroupMessenger(props: {
       console.log(err);
     }
   };
+  let curUserIsGroupMember = authContext?.curUser?.groups.some(
+    (g) => g === group._id
+  );
 
   const activeNowMembers = group.members.filter((member) => member.activeNow);
-  return (
+  return authContext?.curUser ? (
     <div className="w-md border-2">
       <div className="px-12 py-4  flex items-center">
         <AvatarImage imgURL={`http://localhost:5000/${group.img}`} />
@@ -48,16 +51,24 @@ function GroupMessenger(props: {
         </div>
       </div>
       <hr />
-      {authContext?.curUser && (
-        <DisplayMessages
-          curUser={authContext.curUser}
-          messages={group.messages}
-        />
+
+      {curUserIsGroupMember ? (
+        <>
+          <DisplayMessages
+            curUser={authContext.curUser}
+            messages={group.messages}
+          />
+          <hr />
+          <SendMessage
+            style={{ width: "80%" }}
+            sendMessage={sendMessageHandler}
+          />
+        </>
+      ) : (
+        <div>Join this group first</div>
       )}
-      <hr />
-      <SendMessage style={{ width: "80%" }} sendMessage={sendMessageHandler} />
     </div>
-  );
+  ) : null;
 }
 
 export default GroupMessenger;
