@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const UserAngGroupContext = createContext<any>("");
+export const UserAndGroupContext = createContext<any>("");

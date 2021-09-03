@@ -1,12 +1,12 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../../../../context/authContext";
 import { IGroup, IUserType } from "../../../../types/types";
 import axios from "axios";
-import { io } from "socket.io-client";
 
 import AvatarImage from "../../../../common/AvatarImage/AvatarImage";
 import DisplayMessages from "../Messenger/DisplayMessages/DisplayMessages";
 import SendMessage from "../Messenger/SendMessage/SendMessage";
+import JoinGroup from "./JoinGroup/JoinGroup";
 
 function GroupMessenger(props: {
   group: IGroup;
@@ -52,7 +52,7 @@ function GroupMessenger(props: {
       </div>
       <hr />
 
-      {curUserIsGroupMember ? (
+      {curUserIsGroupMember || group.type === "public" ? (
         <>
           <DisplayMessages
             curUser={authContext.curUser}
@@ -65,7 +65,7 @@ function GroupMessenger(props: {
           />
         </>
       ) : (
-        <div>Join this group first</div>
+        <JoinGroup userId={authContext.curUser._id} groupId={group._id} />
       )}
     </div>
   ) : null;

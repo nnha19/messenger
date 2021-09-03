@@ -18,25 +18,25 @@ function App() {
     history.push("/chat");
   };
 
-  console.log(curUser);
-
   const signOutHandler = () => {
     setCurUser(undefined);
   };
-
   return (
     <AuthContext.Provider
       value={{
         isAuth,
         signIn: signInHandler,
         curUser,
+        setCurUser,
         signOut: signOutHandler,
       }}
     >
       <div>
         {isAuth && <Nav />}
         <Switch>
-          {isAuth && <Route path="/chat" exact component={ChatPage} />}
+          {isAuth && curUser && (
+            <Route path="/chat" exact component={ChatPage} />
+          )}
           {!isAuth && <Route exact component={AuthPage} />}
         </Switch>
       </div>

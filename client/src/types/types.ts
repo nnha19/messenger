@@ -18,6 +18,9 @@ export interface IAuthContext {
   signIn: (userObj: IUserType["user"]) => void;
   signOut: () => void;
   curUser: IUserType["user"] | undefined;
+  setCurUser: React.Dispatch<
+    React.SetStateAction<IUserType["user"] | undefined>
+  >;
 }
 
 export interface IMessages {
@@ -40,3 +43,13 @@ export interface IGroup {
 export interface IGroups {
   groups: IGroup[];
 }
+
+interface IUser {
+  user: {
+    username: string;
+    email: string;
+    gender: string;
+  };
+}
+
+const user1 = {} as IUser["user"];

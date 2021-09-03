@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 import { IUsersType, IGroups } from "../../types/types";
-import { UserAngGroupContext } from "../../context/userAndGroupContext";
+import { UserAndGroupContext } from "../../context/userAndGroupContext";
 
 import Chat from "../components/Chat/Chat";
 
@@ -27,13 +27,13 @@ const ChatPage = () => {
   }, []);
 
   return (
-    <UserAngGroupContext.Provider
+    <UserAndGroupContext.Provider
       value={{ users, groups, setUsers, setGroups }}
     >
       <div>
         <Chat />
       </div>
-    </UserAngGroupContext.Provider>
+    </UserAndGroupContext.Provider>
   );
 };
 

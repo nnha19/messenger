@@ -50,6 +50,11 @@ router.post("/member", async (req, res) => {
   try {
     const { userId, groupId } = req.body;
     const group = await Group.findById(groupId);
+    let userIsAlreadyMember = group.members.find((uid) => uid === userId);
+    if (userIsAlreadyMember) {
+      res.status(400).json("You are already member of this group.");
+      return;
+    }
     group.members.push(userId);
     await group.save();
     const user = await User.findById(userId);

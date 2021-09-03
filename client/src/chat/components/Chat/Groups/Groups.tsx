@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 
 import { IGroup, IUserType } from "../../../../types/types";
-import { UserAngGroupContext } from "../../../../context/userAndGroupContext";
+import { UserAndGroupContext } from "../../../../context/userAndGroupContext";
 import { AuthContext } from "../../../../context/authContext";
 
 import GroupList from "./GroupList/GroupList";
@@ -13,7 +13,7 @@ interface IProps {
 
 const Groups: React.FC<IProps> = ({ setChatInGroup, socket }) => {
   const authContext = useContext(AuthContext);
-  const { groups, setGroups } = useContext(UserAngGroupContext);
+  const { groups, setGroups } = useContext(UserAndGroupContext);
 
   useEffect(() => {
     const rooms = groups.map((g: IGroup) => g.name);
