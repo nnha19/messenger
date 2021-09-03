@@ -22,17 +22,21 @@ const JoinGroup: React.FC<IProps> = ({ userId, groupId }) => {
           groupId,
         },
       });
+
       if (authContext.curUser) {
         const curUser = { ...authContext.curUser };
         curUser.groups.push(groupId);
         authContext.setCurUser(curUser);
+        const groups = [...userAndGroupContext.groups];
+        const joinedGroup = groups.find((g) => g._id === groupId);
+        if (!joinedGroup) {
+          return;
+        }
+        const i = groups.findIndex((g) => g._id === groupId);
+        joinedGroup.members.push(authContext.curUser);
+        groups[i] = joinedGroup;
+        userAndGroupContext.setGroups(groups);
       }
-      const groups = [...userAndGroupContext.groups];
-      const joinedGroup = groups.find((g) => g._id === groupId);
-      const i = groups.findIndex((g) => g._id === groupId);
-      joinedGroup.members.push(authContext.curUser);
-      groups[i] = joinedGroup;
-      userAndGroupContext.setGroups(groups);
     } catch (err) {
       console.log(err);
     }

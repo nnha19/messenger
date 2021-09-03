@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import { UserAndGroupContext } from "../../../context/userAndGroupContext";
 import { IUserType, IGroup } from "../../../types/types";
 import { io } from "socket.io-client";
 
@@ -15,7 +14,6 @@ let socket: any;
 const Chat = () => {
   const authContext = useContext(AuthContext);
 
-  useContext(UserAndGroupContext);
   const [activeHeader, setActiveHeader] = useState("Users");
   const [chatWithUser, setChatWithUser] = useState<IUserType["user"]>();
   const [chatInGroup, setChatInGroup] = useState<IGroup>();
