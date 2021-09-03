@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { UserAndGroupContext } from "../../../context/userAndGroupContext";
 import { IUserType, IGroup } from "../../../types/types";
 import { io } from "socket.io-client";
 
@@ -12,6 +13,7 @@ import { AuthContext } from "../../../context/authContext";
 let socket: any;
 
 const Chat = () => {
+  const { users, setUsers } = useContext(UserAndGroupContext);
   const authContext = useContext(AuthContext);
 
   const [activeHeader, setActiveHeader] = useState("Users");
@@ -46,7 +48,22 @@ const Chat = () => {
 
   useEffect(() => {
     socket = io(`http://localhost:5000`);
+    socket.emit("joined", authContext?.curUser?._id);
   }, []);
+
+  useEffect(() => {
+    socket.on("joined", (userId: string) => {
+      const updateUsers = [...users];
+      const user = updateUsers.find((u) => u._id === userId);
+      if (!user) {
+        return;
+      }
+      user.activeNow = true;
+      const i = users.findIndex((u) => u._id === userId);
+      updateUsers[i] = user;
+      setUsers(updateUsers);
+    });
+  }, [users, setUsers]);
 
   return (
     <div className=" flex p-12 items-start">

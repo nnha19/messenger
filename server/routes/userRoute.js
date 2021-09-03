@@ -1,11 +1,11 @@
 const express = require("express");
-const route = express.Router();
+const router = express.Router();
 const User = require("../Models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const imageUpload = require("../middlewares/multer");
 
-route.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const users = await User.find({});
     const usersWithoutPass = users.map((user) => {
@@ -18,7 +18,7 @@ route.get("/", async (req, res) => {
   }
 });
 
-route.post("/", imageUpload.single("avatar"), async (req, res) => {
+router.post("/", imageUpload.single("avatar"), async (req, res) => {
   try {
     const { email, username, password } = req.body;
     const userExist = await User.findOne({ email });
@@ -59,7 +59,7 @@ route.post("/", imageUpload.single("avatar"), async (req, res) => {
   }
 });
 
-route.post("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -85,4 +85,16 @@ route.post("/login", async (req, res) => {
   }
 });
 
-module.exports = route;
+router.put("/logout", async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const user = await User.findById(userId);
+    user.activeNow = false;
+    await user.save();
+    res.status(200).json("Successfully signed out.");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+module.exports = router;

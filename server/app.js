@@ -33,6 +33,9 @@ const groupRoute = require("./routes/groupRoute");
 const messageRoute = require("./routes/messageRoute");
 
 io.on("connection", (socket) => {
+  socket.on("joined", (userId) => {
+    io.emit("joined", userId);
+  });
   socket.on("join-group", ({ user, room }) => {
     socket.join(room);
   });

@@ -34,6 +34,9 @@ const Groups: React.FC<IProps> = ({ setChatInGroup, socket }) => {
       }) => {
         const updateGroups = [...groups];
         const updateGroup = updateGroups.find((g) => g.name === room);
+        if (!updateGroup) {
+          return;
+        }
         const i = updateGroups.findIndex((g) => g.name === room);
         updateGroup.messages.push({ sender: user, message });
         updateGroups[i] = updateGroup;

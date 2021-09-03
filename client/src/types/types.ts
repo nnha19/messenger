@@ -27,7 +27,7 @@ export interface IMessages {
   messages: {
     sender: IUserType["user"];
     message: String;
-    _id: string;
+    _id?: string;
   }[];
 }
 

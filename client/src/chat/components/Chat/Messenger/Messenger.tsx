@@ -20,7 +20,6 @@ const Messenger = (props: {
   const socket = io(`http://localhost:5000`);
 
   useEffect(() => {
-    socket.on("connect", () => console.log(`Your id is ${socket.id}`));
     socket.on("message", (msg) => {
       setMessages((prev) => [...prev, msg]);
     });

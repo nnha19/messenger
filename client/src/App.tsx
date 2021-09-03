@@ -7,6 +7,7 @@ import { IUserType } from "./types/types";
 import ChatPage from "./chat/pages/chatPage";
 import AuthPage from "./auth/pages/authPage";
 import Nav from "./common/Nav/Nav";
+import axios from "axios";
 
 function App() {
   const history = useHistory();
@@ -18,7 +19,12 @@ function App() {
     history.push("/chat");
   };
 
-  const signOutHandler = () => {
+  const signOutHandler = async () => {
+    const resp = await axios({
+      url: `http://localhost:5000/user/logout`,
+      method: "PUT",
+      data: { userId: curUser?._id },
+    });
     setCurUser(undefined);
   };
   return (

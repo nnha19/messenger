@@ -15,6 +15,7 @@ const SingleUser: React.FC<IProps> = ({
   userIsCurUser,
   setChatWithUser,
 }) => {
+  let userActiveStyle = !user.activeNow ? "bg-gray-400" : "bg-primary";
   return (
     <div
       onClick={() => {
@@ -30,7 +31,9 @@ const SingleUser: React.FC<IProps> = ({
           {user.username} {userIsCurUser}
         </h1>
         <span className="flex items-center">
-          <span className="h-2 w-2 rounded-full bg-primary block mr-2"></span>
+          <span
+            className={`${userActiveStyle} h-2 w-2 rounded-full  block mr-2`}
+          ></span>
           {user.activeNow ? "Active Now" : "Away"}
         </span>
       </div>
