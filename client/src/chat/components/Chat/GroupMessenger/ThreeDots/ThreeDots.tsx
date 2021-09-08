@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 import axios from "axios";
 import { useUserAndGroup } from "../../../../../customHooks/userUserAndGroup";
 import { useAuthContext } from "../../../../../customHooks/useAuthContext";
+import { useShowModalContext } from "../../../../../customHooks/useShowModalContext";
 
 interface IProps {
   userId: string;
@@ -11,8 +12,9 @@ interface IProps {
 
 const ThreeDots: React.FC<IProps> = ({ userId, groupId }) => {
   const authContext = useAuthContext("");
+  const { showModal, modalShow } = useShowModalContext();
 
-  const { users, setUsers, groups, setGroups } = useUserAndGroup();
+  const { groups, setGroups } = useUserAndGroup();
   const leaveGroupHandler = async () => {
     try {
       const resp = await axios({
@@ -45,20 +47,23 @@ const ThreeDots: React.FC<IProps> = ({ userId, groupId }) => {
       console.log(err);
     }
   };
-
+  console.log(showModal);
   return (
-    <div className="relative">
-      <span className="block h-1 w-1 mb-1 bg-black rounded-full"></span>
-      <span className="block h-1 w-1 mb-1 bg-black rounded-full"></span>
-      <span className="block h-1 w-1 mb-1 bg-black rounded-full"></span>
-      <div className="absolute w-max   ">
-        <ul>
-          <li className="three-dots-list">Members</li>
-          <li onClick={leaveGroupHandler} className="three-dots-list">
-            Leave Group
-          </li>
-        </ul>
-      </div>
+    <div id="three-dots" onClick={modalShow} className="relative">
+      <span className="dot"></span>
+      <span className="dot"></span>
+      <span className="dot"></span>
+
+      {showModal && (
+        <div id="three-dots-modal" className="absolute w-max">
+          <ul>
+            <li className="three-dots-list">Members</li>
+            <li onClick={leaveGroupHandler} className="three-dots-list">
+              Leave Group
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

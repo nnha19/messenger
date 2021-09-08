@@ -5,8 +5,10 @@ import { IUsersType, IGroups } from "../../types/types";
 import { UserAndGroupContext } from "../../context/userAndGroupContext";
 
 import Chat from "../components/Chat/Chat";
+import { useShowModalContext } from "../../customHooks/useShowModalContext";
 
 const ChatPage = () => {
+  const { hideModal } = useShowModalContext();
   const [users, setUsers] = useState<IUsersType["users"]>([]);
   const [groups, setGroups] = useState<IGroups["groups"]>([]);
 
@@ -30,7 +32,7 @@ const ChatPage = () => {
     <UserAndGroupContext.Provider
       value={{ users, groups, setUsers, setGroups }}
     >
-      <div>
+      <div onClick={(e) => hideModal(e)}>
         <Chat />
       </div>
     </UserAndGroupContext.Provider>

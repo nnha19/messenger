@@ -8,6 +8,7 @@ import ChatPage from "./chat/pages/chatPage";
 import AuthPage from "./auth/pages/authPage";
 import Nav from "./common/Nav/Nav";
 import axios from "axios";
+import ShowModalContext from "./context/showModalContext";
 
 function App() {
   const history = useHistory();
@@ -41,7 +42,9 @@ function App() {
         {isAuth && <Nav />}
         <Switch>
           {isAuth && curUser && (
-            <Route path="/chat" exact component={ChatPage} />
+            <ShowModalContext>
+              <Route path="/chat" exact component={ChatPage} />
+            </ShowModalContext>
           )}
           {!isAuth && <Route exact component={AuthPage} />}
         </Switch>
