@@ -13,7 +13,8 @@ import { AuthContext } from "../../../context/authContext";
 let socket: any;
 
 const Chat = () => {
-  const { users, setUsers } = useContext(UserAndGroupContext);
+  const { users, setUsers, groups, setGroups } =
+    useContext(UserAndGroupContext);
   const authContext = useContext(AuthContext);
 
   const [activeHeader, setActiveHeader] = useState("Users");
@@ -53,6 +54,7 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on("joined", (userId: string) => {
+      //update active now user
       const updateUsers = [...users];
       const user = updateUsers.find((u) => u._id === userId);
       if (!user) {

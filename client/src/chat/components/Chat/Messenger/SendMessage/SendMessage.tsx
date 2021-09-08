@@ -18,6 +18,7 @@ const SendMessage: React.FC<IProps> = ({ sendMessage, style }) => {
 
   const sendMessageHandler = (e: any, message: string) => {
     e.preventDefault();
+    if (message.length < 1) return;
     sendMessage(message);
     setMessage("");
   };

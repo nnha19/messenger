@@ -5,6 +5,7 @@ import { UserAndGroupContext } from "../../../../context/userAndGroupContext";
 import { AuthContext } from "../../../../context/authContext";
 
 import GroupList from "./GroupList/GroupList";
+import { useAuthContext } from "../../../../customHooks/useAuthContext";
 
 interface IProps {
   setChatInGroup(group: IGroup): void;
@@ -12,11 +13,11 @@ interface IProps {
 }
 
 const Groups: React.FC<IProps> = ({ setChatInGroup, socket }) => {
-  const authContext = useContext(AuthContext);
+  const authContext = useAuthContext("");
   const { groups, setGroups } = useContext(UserAndGroupContext);
 
   useEffect(() => {
-    const rooms = groups.map((g: IGroup) => g.name);
+    const rooms = groups.map((g) => g.name);
     socket.emit("join-group", {
       user: authContext?.curUser,
       room: rooms,
