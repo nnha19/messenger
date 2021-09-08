@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { IUserType, IMessages } from "../../../../../types/types";
 
 import AvatarImage from "../../../../../common/AvatarImage/AvatarImage";
@@ -9,6 +9,18 @@ interface IProps {
 }
 
 const DisplayMessages: React.FC<IProps> = ({ messages, curUser }) => {
+  const ref: any = useRef();
+
+  const scrollToBottom = () => {
+    const scrollHeight = ref.current.scrollHeight;
+    const height = ref.current.clientHeight;
+    const maxScrollTop = scrollHeight - height;
+    ref.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages.length]);
+
   const msgOutput = messages.map((message) => {
     const senderIsCurUser = curUser._id === message.sender._id;
     let textStyle = senderIsCurUser
@@ -28,7 +40,11 @@ const DisplayMessages: React.FC<IProps> = ({ messages, curUser }) => {
       </div>
     );
   });
-  return <div className="h-96 px-8 py-4 overflow-y-auto">{msgOutput}</div>;
+  return (
+    <div ref={ref} className="h-96 px-8 py-4 overflow-y-auto">
+      {msgOutput}
+    </div>
+  );
 };
 
 export default DisplayMessages;

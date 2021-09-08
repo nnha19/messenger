@@ -10,7 +10,7 @@ interface IProps {
 const GroupMembers: React.FC<IProps> = ({ hideMembers, groupMembers }) => {
   return (
     <>
-      <div className="bg-white absolute-center w-max z-10 shadow-sm cursor-auto">
+      <div className="bg-white absolute-center w-96 z-10 shadow-sm cursor-auto">
         <h1 className="font-medium text-xl my-2  px-8 border-b-2 py-4 ">
           Group Members
         </h1>
