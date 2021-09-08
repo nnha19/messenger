@@ -43,11 +43,18 @@ function GroupMessenger(props: {
   const activeNowMembers = group.members.filter((member) => member.activeNow);
   return authContext?.curUser ? (
     <div className="w-md border-2">
-      <div className="px-12 py-4  flex items-center">
-        <AvatarImage imgURL={`http://localhost:5000/${group.img}`} />
-        <div className="ml-8">
-          <h2 className="text-lg font-medium">{group.name}</h2>
-          <span>{activeNowMembers.length} users Active Now</span>
+      <div className="flex items-center justify-between">
+        <div className="px-12 py-4  flex items-center">
+          <AvatarImage imgURL={`http://localhost:5000/${group.img}`} />
+          <div className="ml-8">
+            <h2 className="text-lg font-medium">{group.name}</h2>
+            <span>{activeNowMembers.length} users Active Now</span>
+          </div>
+        </div>
+        <div className="mr-4 self-center">
+          <div>.</div>
+          <div>.</div>
+          <div>.</div>
         </div>
       </div>
       <hr />

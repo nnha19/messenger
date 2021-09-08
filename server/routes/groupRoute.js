@@ -66,4 +66,26 @@ router.post("/member", async (req, res) => {
   }
 });
 
+router.put("/member", async (req, res) => {
+  try {
+    const { userId, groupId } = req.body;
+    let group = await Group.findById(groupId);
+    const updatedMembers = group.members.filter(
+      (member) => member._id.toString() !== userId
+    );
+    console.log(group);
+    group.members = updatedMembers;
+    await group.save();
+    let user = await User.findById(userId);
+    const updatedGroup = user.groups.filter(
+      (g) => g._id.toString() !== groupId
+    );
+    user.groups = updatedGroup;
+    await user.save();
+    res.status(200).json({ group, user });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

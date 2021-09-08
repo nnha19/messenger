@@ -3,8 +3,7 @@ import React from "react";
 import AvatarImage from "../../../../../../common/AvatarImage/AvatarImage";
 import { IGroup } from "../../../../../../types/types";
 
-const ThreeAvatarImgs = (props: { group: IGroup }) => {
-  const { group } = props;
+const ThreeAvatarImgs = ({ group }: { group: IGroup }) => {
   let threeMemImgURL: string[] = [];
 
   for (let i = 0; i < group.members.length; i++) {
