@@ -20,7 +20,11 @@ const ShowModalContext: React.FC<IShowModalContext> = ({ children }) => {
   };
 
   const hideModalHandler = function (e) {
-    if (e.target.closest("#three-dots")) {
+    if (
+      e &&
+      e.target.closest("#three-dots") &&
+      !e.target.closest("#three-dots-modal")
+    ) {
       return;
     }
     setShowModal(false);

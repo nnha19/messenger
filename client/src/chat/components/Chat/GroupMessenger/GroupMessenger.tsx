@@ -1,5 +1,3 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../../../context/authContext";
 import { IGroup, IUserType } from "../../../../types/types";
 import axios from "axios";
 
@@ -8,6 +6,7 @@ import DisplayMessages from "../Messenger/DisplayMessages/DisplayMessages";
 import SendMessage from "../Messenger/SendMessage/SendMessage";
 import JoinGroup from "./JoinGroup/JoinGroup";
 import ThreeDots from "./ThreeDots/ThreeDots";
+import { useAuthContext } from "../../../../customHooks/useAuthContext";
 
 function GroupMessenger(props: {
   group: IGroup;
@@ -17,7 +16,7 @@ function GroupMessenger(props: {
     room: string
   ) => void;
 }) {
-  const authContext = useContext(AuthContext);
+  const authContext = useAuthContext("");
   const { group, sendMsgInGroup } = props;
 
   const sendMessageHandler = async (message: string) => {
@@ -57,6 +56,7 @@ function GroupMessenger(props: {
             group={group}
             userId={authContext.curUser._id}
             groupId={group._id}
+            curUserIsGroupMember={curUserIsGroupMember}
           />
         </div>
       </div>

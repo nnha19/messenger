@@ -9,20 +9,20 @@ interface IProps {
 
 const GroupMembers: React.FC<IProps> = ({ hideMembers, groupMembers }) => {
   return (
-    <React.Fragment>
-      <div className="bg-white absolute-center w-max z-10 shadow-sm">
+    <>
+      <div className="bg-white absolute-center w-max z-10 shadow-sm cursor-auto">
         <h1 className="font-medium text-xl my-2  px-8 border-b-2 py-4 ">
           Group Members
         </h1>
-        <div className=" px-8 py-4">
-          <Users users={groupMembers} />
+        <div className=" px-8 py-4 ">
+          <Users style={{ cursor: "auto" }} users={groupMembers} />
         </div>
       </div>
       <div
         onClick={hideMembers}
-        className="h-screen w-screen fixed top-0 left-0 bg-backDrop"
+        className="cursor-auto h-screen w-screen fixed top-0 left-0 bg-backDrop"
       ></div>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -12,15 +12,22 @@ interface IProps {
   userId: string;
   groupId: string;
   group: IGroup;
+  curUserIsGroupMember: Boolean | undefined;
 }
 
-const ThreeDots: React.FC<IProps> = ({ userId, groupId, group }) => {
+const ThreeDots: React.FC<IProps> = ({
+  userId,
+  groupId,
+  group,
+  curUserIsGroupMember,
+}) => {
   const [showMembers, setShowMembers] = useState(false);
   const authContext = useAuthContext("");
   const { showModal, modalShow, hideModal } = useShowModalContext();
 
   const { groups, setGroups } = useUserAndGroup();
   const leaveGroupHandler = async () => {
+    hideModal(null);
     try {
       const resp = await axios({
         method: "PUT",
@@ -75,9 +82,11 @@ const ThreeDots: React.FC<IProps> = ({ userId, groupId, group }) => {
               <li onClick={showMembersHandler} className="three-dots-list">
                 Members
               </li>
-              <li onClick={leaveGroupHandler} className="three-dots-list">
-                Leave Group
-              </li>
+              {curUserIsGroupMember && (
+                <li onClick={leaveGroupHandler} className="three-dots-list">
+                  Leave Group
+                </li>
+              )}
             </ul>
           </div>
         )}

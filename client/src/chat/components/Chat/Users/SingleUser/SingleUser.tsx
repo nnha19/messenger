@@ -8,16 +8,19 @@ interface IProps {
   user: IUserType["user"];
   userIsCurUser?: string | boolean;
   setChatWithUser?: (user: IUserType["user"]) => void;
+  style?: Object;
 }
 
 const SingleUser: React.FC<IProps> = ({
   user,
   userIsCurUser,
   setChatWithUser,
+  style,
 }) => {
   let userActiveStyle = !user.activeNow ? "bg-gray-400" : "bg-primary";
   return (
     <div
+      style={style}
       onClick={() => {
         setChatWithUser && setChatWithUser(user);
       }}
