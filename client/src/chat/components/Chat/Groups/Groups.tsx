@@ -6,6 +6,7 @@ import { AuthContext } from "../../../../context/authContext";
 
 import GroupList from "./GroupList/GroupList";
 import { useAuthContext } from "../../../../customHooks/useAuthContext";
+import CreateGroup from "./CreateGroup/CreateGroup";
 
 interface IProps {
   setChatInGroup(group: IGroup): void;
@@ -47,8 +48,11 @@ const Groups: React.FC<IProps> = ({ setChatInGroup, socket }) => {
   }, []);
 
   return (
-    <div className="h-md overflow-y-auto">
-      <GroupList setChatInGroup={setChatInGroup} groups={groups} />
+    <div className=" bg-white ">
+      <div className=" overflow-y-auto h-md">
+        <GroupList setChatInGroup={setChatInGroup} groups={groups} />
+      </div>
+      <CreateGroup />
     </div>
   );
 };
