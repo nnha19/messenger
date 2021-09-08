@@ -4,6 +4,8 @@ import axios from "axios";
 import { useUserAndGroup } from "../../../../../customHooks/userUserAndGroup";
 import { useAuthContext } from "../../../../../customHooks/useAuthContext";
 import { useShowModalContext } from "../../../../../customHooks/useShowModalContext";
+import Users from "../../Users/Users";
+import GroupMembers from "./GroupMembers/GroupMembers";
 
 interface IProps {
   userId: string;
@@ -11,8 +13,9 @@ interface IProps {
 }
 
 const ThreeDots: React.FC<IProps> = ({ userId, groupId }) => {
+  const [showMembers, setShowMembers] = useState(false);
   const authContext = useAuthContext("");
-  const { showModal, modalShow } = useShowModalContext();
+  const { showModal, modalShow, hideModal } = useShowModalContext();
 
   const { groups, setGroups } = useUserAndGroup();
   const leaveGroupHandler = async () => {
@@ -47,24 +50,38 @@ const ThreeDots: React.FC<IProps> = ({ userId, groupId }) => {
       console.log(err);
     }
   };
-  console.log(showModal);
-  return (
-    <div id="three-dots" onClick={modalShow} className="relative">
-      <span className="dot"></span>
-      <span className="dot"></span>
-      <span className="dot"></span>
 
-      {showModal && (
-        <div id="three-dots-modal" className="absolute w-max">
-          <ul>
-            <li className="three-dots-list">Members</li>
-            <li onClick={leaveGroupHandler} className="three-dots-list">
-              Leave Group
-            </li>
-          </ul>
-        </div>
-      )}
-    </div>
+  const showMembersHandler = () => {
+    setShowMembers(true);
+    hideModal(null);
+  };
+
+  const hideMembersHandler = () => {
+    setShowMembers(false);
+  };
+
+  return (
+    <>
+      <div id="three-dots" onClick={modalShow} className="relative">
+        <span className="dot"></span>
+        <span className="dot"></span>
+        <span className="dot"></span>
+
+        {showModal && (
+          <div id="three-dots-modal" className="absolute w-max">
+            <ul>
+              <li onClick={showMembersHandler} className="three-dots-list">
+                Members
+              </li>
+              <li onClick={leaveGroupHandler} className="three-dots-list">
+                Leave Group
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+      {showMembers && <GroupMembers hideMembers={hideMembersHandler} />}
+    </>
   );
 };
 

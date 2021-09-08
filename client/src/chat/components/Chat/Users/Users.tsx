@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 
-import { IUsersType, IUserType } from "../../../../types/types";
+import { IUserType } from "../../../../types/types";
 import { AuthContext } from "../../../../context/authContext";
 import { UserAndGroupContext } from "../../../../context/userAndGroupContext";
 
 import SingleUser from "./SingleUser/SingleUser";
 
 interface IProps {
-  setChatWithUser: (userObj: IUserType["user"]) => void;
+  setChatWithUser?: (userObj: IUserType["user"]) => void;
 }
 
 const Users: React.FC<IProps> = ({ setChatWithUser }) => {

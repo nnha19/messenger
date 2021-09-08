@@ -7,7 +7,7 @@ interface IShowModalContext {
 interface IContextValue {
   showModal: boolean;
   modalShow: () => void;
-  hideModal: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  hideModal: (e: React.MouseEvent<HTMLDivElement, MouseEvent> | null) => void;
 }
 
 export const ShowModalContextProvider = createContext({} as IContextValue);
@@ -21,6 +21,7 @@ const ShowModalContext: React.FC<IShowModalContext> = ({ children }) => {
 
   const hideModalHandler = function (e) {
     if (e.target.closest("#three-dots")) return;
+
     setShowModal(false);
   };
 
