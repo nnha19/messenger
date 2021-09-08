@@ -53,7 +53,11 @@ function GroupMessenger(props: {
           </div>
         </div>
         <div className="mr-4 self-center cursor-pointer">
-          <ThreeDots userId={authContext.curUser._id} groupId={group._id} />
+          <ThreeDots
+            group={group}
+            userId={authContext.curUser._id}
+            groupId={group._id}
+          />
         </div>
       </div>
       <hr />

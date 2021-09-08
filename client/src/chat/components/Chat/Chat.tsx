@@ -82,7 +82,7 @@ const Chat = () => {
         </div>
         <hr />
         {activeHeader === "Users" ? (
-          <Users setChatWithUser={setChatWithUserHandler} />
+          <Users users={users} setChatWithUser={setChatWithUserHandler} />
         ) : (
           <Groups socket={socket} setChatInGroup={setChatInGroupHandler} />
         )}

@@ -1,11 +1,13 @@
 import React from "react";
+import { IUsersType } from "../../../../../../types/types";
 import Users from "../../../Users/Users";
 
 interface IProps {
   hideMembers: () => void;
+  groupMembers: IUsersType["users"];
 }
 
-const GroupMembers: React.FC<IProps> = ({ hideMembers }) => {
+const GroupMembers: React.FC<IProps> = ({ hideMembers, groupMembers }) => {
   return (
     <React.Fragment>
       <div className="bg-white absolute-center w-max z-10 shadow-sm">
@@ -13,7 +15,7 @@ const GroupMembers: React.FC<IProps> = ({ hideMembers }) => {
           Group Members
         </h1>
         <div className=" px-8 py-4">
-          <Users />
+          <Users users={groupMembers} />
         </div>
       </div>
       <div

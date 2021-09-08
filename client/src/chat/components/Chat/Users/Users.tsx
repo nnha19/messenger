@@ -1,17 +1,16 @@
 import React, { useContext } from "react";
 
-import { IUserType } from "../../../../types/types";
+import { IUserType, IUsersType } from "../../../../types/types";
 import { AuthContext } from "../../../../context/authContext";
-import { UserAndGroupContext } from "../../../../context/userAndGroupContext";
 
 import SingleUser from "./SingleUser/SingleUser";
 
 interface IProps {
   setChatWithUser?: (userObj: IUserType["user"]) => void;
+  users: IUsersType["users"];
 }
 
-const Users: React.FC<IProps> = ({ setChatWithUser }) => {
-  const { users } = useContext(UserAndGroupContext);
+const Users: React.FC<IProps> = ({ setChatWithUser, users }) => {
   const context = useContext(AuthContext);
   const displayUsers = users.map((user: IUserType["user"]) => {
     const userIsCurUser = context?.curUser?._id === user._id && "(You)";

@@ -6,13 +6,15 @@ import { useAuthContext } from "../../../../../customHooks/useAuthContext";
 import { useShowModalContext } from "../../../../../customHooks/useShowModalContext";
 import Users from "../../Users/Users";
 import GroupMembers from "./GroupMembers/GroupMembers";
+import { IGroup } from "../../../../../types/types";
 
 interface IProps {
   userId: string;
   groupId: string;
+  group: IGroup;
 }
 
-const ThreeDots: React.FC<IProps> = ({ userId, groupId }) => {
+const ThreeDots: React.FC<IProps> = ({ userId, groupId, group }) => {
   const [showMembers, setShowMembers] = useState(false);
   const authContext = useAuthContext("");
   const { showModal, modalShow, hideModal } = useShowModalContext();
@@ -80,7 +82,12 @@ const ThreeDots: React.FC<IProps> = ({ userId, groupId }) => {
           </div>
         )}
       </div>
-      {showMembers && <GroupMembers hideMembers={hideMembersHandler} />}
+      {showMembers && (
+        <GroupMembers
+          groupMembers={group.members}
+          hideMembers={hideMembersHandler}
+        />
+      )}
     </>
   );
 };
