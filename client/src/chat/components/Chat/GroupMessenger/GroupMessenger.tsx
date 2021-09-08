@@ -7,6 +7,7 @@ import AvatarImage from "../../../../common/AvatarImage/AvatarImage";
 import DisplayMessages from "../Messenger/DisplayMessages/DisplayMessages";
 import SendMessage from "../Messenger/SendMessage/SendMessage";
 import JoinGroup from "./JoinGroup/JoinGroup";
+import ThreeDots from "./ThreeDots/ThreeDots";
 
 function GroupMessenger(props: {
   group: IGroup;
@@ -51,10 +52,8 @@ function GroupMessenger(props: {
             <span>{activeNowMembers.length} users Active Now</span>
           </div>
         </div>
-        <div className="mr-4 self-center">
-          <div>.</div>
-          <div>.</div>
-          <div>.</div>
+        <div className="mr-4 self-center cursor-pointer">
+          <ThreeDots userId={authContext.curUser._id} groupId={group._id} />
         </div>
       </div>
       <hr />

@@ -73,7 +73,6 @@ router.put("/member", async (req, res) => {
     const updatedMembers = group.members.filter(
       (member) => member._id.toString() !== userId
     );
-    console.log(group);
     group.members = updatedMembers;
     await group.save();
     let user = await User.findById(userId);
@@ -82,7 +81,7 @@ router.put("/member", async (req, res) => {
     );
     user.groups = updatedGroup;
     await user.save();
-    res.status(200).json({ group, user });
+    res.status(200).json("Success.");
   } catch (err) {
     res.status(500).json(err);
   }
