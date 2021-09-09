@@ -42,17 +42,7 @@ const JoinGroup: React.FC<IProps> = ({ userId, groupId }) => {
     }
   };
 
-  return (
-    <div className="h-md flex items-center justify-center">
-      <div className="w-96">
-        <h5 className="mb-4 font-medium">
-          This is a private group. You need to join the group first to send and
-          receive messages
-        </h5>
-        <Button clicked={joinGroupHandler}>Join Group</Button>
-      </div>
-    </div>
-  );
+  return <Button clicked={joinGroupHandler}>Join Group</Button>;
 };
 
 export default JoinGroup;

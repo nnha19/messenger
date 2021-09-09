@@ -7,6 +7,7 @@ import SendMessage from "../Messenger/SendMessage/SendMessage";
 import JoinGroup from "./JoinGroup/JoinGroup";
 import ThreeDots from "./ThreeDots/ThreeDots";
 import { useAuthContext } from "../../../../customHooks/useAuthContext";
+import GroupType from "../Groups/GroupList/GroupType/GroupType";
 
 function GroupMessenger(props: {
   group: IGroup;
@@ -40,6 +41,10 @@ function GroupMessenger(props: {
     (g) => g === group._id
   );
 
+  const groupIsPublicAndNotMember =
+    group.type === "public" &&
+    !group.members.some((u) => u._id === authContext.curUser?._id);
+
   const activeNowMembers = group.members.filter((member) => member.activeNow);
   return authContext?.curUser ? (
     <div className="w-md border-2">
@@ -49,6 +54,10 @@ function GroupMessenger(props: {
           <div className="ml-8">
             <h2 className="text-lg font-medium">{group.name}</h2>
             <span>{activeNowMembers.length} users Active Now</span>
+            <GroupType type={group.type} />
+            {groupIsPublicAndNotMember && (
+              <JoinGroup userId={authContext.curUser._id} groupId={group._id} />
+            )}
           </div>
         </div>
         <div className="mr-4 self-center cursor-pointer">
@@ -75,7 +84,15 @@ function GroupMessenger(props: {
           />
         </>
       ) : (
-        <JoinGroup userId={authContext.curUser._id} groupId={group._id} />
+        <div className="h-md flex items-center justify-center">
+          <div className="w-96">
+            <h5 className="mb-4 font-medium">
+              This is a private group. You need to join the group first to send
+              and receive messages
+            </h5>
+            <JoinGroup userId={authContext.curUser._id} groupId={group._id} />
+          </div>
+        </div>
       )}
     </div>
   ) : null;
