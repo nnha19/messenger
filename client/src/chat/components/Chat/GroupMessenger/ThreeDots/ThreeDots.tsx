@@ -4,7 +4,6 @@ import axios from "axios";
 import { useUserAndGroup } from "../../../../../customHooks/userUserAndGroup";
 import { useAuthContext } from "../../../../../customHooks/useAuthContext";
 import { useShowModalContext } from "../../../../../customHooks/useShowModalContext";
-import Users from "../../Users/Users";
 import GroupMembers from "./GroupMembers/GroupMembers";
 import { IGroup } from "../../../../../types/types";
 

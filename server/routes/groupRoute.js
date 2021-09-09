@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
 
 router.post("/", imageUpload.single("groupImg"), async (req, res) => {
   try {
-    const { name, type } = req.body;
+    const { name, type, userId } = req.body;
     const groupNameExist = await Group.findOne({ name });
     if (groupNameExist) {
       res.status(400).json({
@@ -30,13 +30,16 @@ router.post("/", imageUpload.single("groupImg"), async (req, res) => {
           "Group with choosen name already exists. Please choose different one.",
       });
     } else {
+      const groupCreator = await User.findById(userId);
       const newGroup = await Group.create({
         name,
         type,
         img: req.file.path,
-        members: [],
+        members: [groupCreator],
         messages: [],
       });
+      groupCreator.groups.push(newGroup._id);
+      await groupCreator.save();
       res.status(200).json(newGroup);
     }
   } catch (err) {

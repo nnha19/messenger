@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 const socketIO = require("socket.io");
-const { addUser, getUser } = require("./socket/socketUsers");
 dotenv.config();
 
 const app = express();
