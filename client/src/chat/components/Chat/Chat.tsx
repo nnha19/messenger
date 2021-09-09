@@ -69,7 +69,7 @@ const Chat = () => {
 
   return (
     <div className=" flex p-12 items-start">
-      <div className="shadow-md mx-24 pb-4 w-80">
+      <div className="shadow-md mx-24  w-80">
         <div className="flex justify-between bg-primary ">
           <ToggleHeader
             toggleHeader={toggleHeaderHandler}

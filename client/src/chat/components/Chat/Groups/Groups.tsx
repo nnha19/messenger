@@ -2,7 +2,6 @@ import React, { useEffect, useContext } from "react";
 
 import { IGroup, IUserType } from "../../../../types/types";
 import { UserAndGroupContext } from "../../../../context/userAndGroupContext";
-import { AuthContext } from "../../../../context/authContext";
 
 import GroupList from "./GroupList/GroupList";
 import { useAuthContext } from "../../../../customHooks/useAuthContext";

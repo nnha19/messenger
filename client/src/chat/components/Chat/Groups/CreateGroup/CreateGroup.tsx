@@ -62,7 +62,14 @@ const CreateGroup = () => {
 
   return (
     <>
-      <Button clicked={setcreateGroupHandler}>Create Group</Button>
+      <div className="text-center border-t-2">
+        <Button
+          style={{ width: "60%", margin: ".7rem 0" }}
+          clicked={setcreateGroupHandler}
+        >
+          Create Group
+        </Button>
+      </div>
       {createGroup && (
         <>
           <div onClick={hideCreateGroupHandler} className="backdrop"></div>
