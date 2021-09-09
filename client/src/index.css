@@ -17,3 +17,9 @@ body {
 .absolute-center {
   @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
 }
+.label {
+  @apply font-medium mr-2;
+}
+.backdrop {
+  @apply cursor-auto h-screen w-screen fixed top-0 left-0 bg-backDrop;
+}

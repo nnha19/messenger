@@ -18,10 +18,7 @@ const GroupMembers: React.FC<IProps> = ({ hideMembers, groupMembers }) => {
           <Users style={{ cursor: "auto" }} users={groupMembers} />
         </div>
       </div>
-      <div
-        onClick={hideMembers}
-        className="cursor-auto h-screen w-screen fixed top-0 left-0 bg-backDrop"
-      ></div>
+      <div onClick={hideMembers} className="backdrop"></div>
     </>
   );
 };
