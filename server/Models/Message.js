@@ -7,6 +7,7 @@ const messageSchema = new mongoose.Schema({
     ref: "User",
   },
   timestamp: { type: Date, default: Date.now, required: true },
+  new: Boolean,
 });
 
 module.exports = mongoose.model("Message", messageSchema);
