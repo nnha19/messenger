@@ -21,5 +21,5 @@ body {
   @apply font-medium mr-2;
 }
 .backdrop {
-  @apply cursor-auto h-screen w-screen fixed top-0 left-0 bg-backDrop;
+  @apply cursor-auto h-screen w-screen fixed top-0 left-0 bg-backDrop z-10;
 }

@@ -5,16 +5,15 @@ const imageUpload = require("../middlewares/multer");
 
 router.get("/", async (req, res) => {
   try {
-    Group.find({})
-      .populate("messages.sender")
-      .populate("members")
-      .exec(function (err, groups) {
-        if (err) {
-          res.status(400).json(err);
-        } else {
-          res.status(200).json(groups);
-        }
+    const groups = await Group.find({})
+      .populate({
+        path: "messages",
+        populate: { path: "sender" },
+      })
+      .populate({
+        path: "members",
       });
+    res.status(200).json(groups);
   } catch (err) {
     res.status(400).json({ err });
   }

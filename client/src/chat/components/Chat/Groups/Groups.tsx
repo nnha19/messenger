@@ -39,7 +39,11 @@ const Groups: React.FC<IProps> = ({ setChatInGroup, socket }) => {
           return;
         }
         const i = updateGroups.findIndex((g) => g.name === room);
-        updateGroup.messages.push({ sender: user, message });
+        updateGroup.messages.push({
+          sender: user,
+          message,
+          timestamp: new Date().toString(),
+        });
         updateGroups[i] = updateGroup;
         setGroups(updateGroups);
       }

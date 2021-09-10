@@ -7,11 +7,8 @@ const groupSchema = new mongoose.Schema({
   type: { type: String, required: true },
   messages: [
     {
-      message: String,
-      sender: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
     },
   ],
 });

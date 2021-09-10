@@ -26,8 +26,9 @@ export interface IAuthContext {
 export interface IMessages {
   messages: {
     sender: IUserType["user"];
-    message: String;
+    message: string;
     _id?: string;
+    timestamp: string;
   }[];
 }
 

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Input from "../../../../../common/input/Input";
 import Button from "../../../../../common/button/button";
 
-let socket;
 interface IProps {
   sendMessage(message: string): void;
   style?: object;
