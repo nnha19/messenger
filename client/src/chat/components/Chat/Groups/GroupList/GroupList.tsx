@@ -1,5 +1,6 @@
 import React from "react";
 import AvatarImage from "../../../../../common/AvatarImage/AvatarImage";
+import { useAuthContext } from "../../../../../customHooks/useAuthContext";
 
 import { IGroups, IGroup } from "../../../../../types/types";
 import GroupType from "./GroupType/GroupType";
@@ -11,7 +12,9 @@ interface IProps {
 }
 
 const GroupList: React.FC<IProps> = ({ groups, setChatInGroup }) => {
+  const { curUser } = useAuthContext("");
   const groupListOutput = groups.map((group): JSX.Element => {
+    const newMsgs = group.messages.filter((m) => m.new).length;
     return (
       <div
         key={group._id}
@@ -34,6 +37,11 @@ const GroupList: React.FC<IProps> = ({ groups, setChatInGroup }) => {
               <span>{group.members.length} Members</span>
             </div>
             <GroupType type={group.type} />
+            {newMsgs > 0 && curUser?.groups.some((g) => g === group._id) && (
+              <span className="font-bold mt-2 block">
+                {newMsgs} new messages
+              </span>
+            )}
           </div>
         </div>
       </div>

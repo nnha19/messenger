@@ -29,6 +29,7 @@ export interface IMessages {
     message: string;
     _id?: string;
     timestamp: string;
+    new?: boolean;
   }[];
 }
 
@@ -39,6 +40,7 @@ export interface IGroup {
   type: string;
   img: string;
   _id: string;
+  openedChat?: boolean;
 }
 
 export interface IGroups {

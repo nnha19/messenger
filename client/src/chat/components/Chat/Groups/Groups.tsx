@@ -10,9 +10,10 @@ import CreateGroup from "./CreateGroup/CreateGroup";
 interface IProps {
   setChatInGroup(group: IGroup): void;
   socket: any;
+  chatInGroup: IGroup | undefined;
 }
 
-const Groups: React.FC<IProps> = ({ setChatInGroup, socket }) => {
+const Groups: React.FC<IProps> = ({ setChatInGroup, socket, chatInGroup }) => {
   const authContext = useAuthContext("");
   const { groups, setGroups } = useContext(UserAndGroupContext);
 
@@ -22,6 +23,9 @@ const Groups: React.FC<IProps> = ({ setChatInGroup, socket }) => {
       user: authContext?.curUser,
       room: rooms,
     });
+  }, []);
+
+  useEffect(() => {
     socket.on(
       "send-message",
       ({
@@ -43,6 +47,7 @@ const Groups: React.FC<IProps> = ({ setChatInGroup, socket }) => {
           sender: user,
           message,
           timestamp: new Date().toString(),
+          new: !groups.find((g) => g.name === room)?.openedChat,
         });
         updateGroups[i] = updateGroup;
         setGroups(updateGroups);
