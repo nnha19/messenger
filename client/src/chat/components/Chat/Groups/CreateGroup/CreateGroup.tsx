@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import ImageUpload from "../../../../../auth/components/Auth/ImgUpload/ImageUpload";
 import Button from "../../../../../common/button/button";
-import Input from "../../../../../common/input/Input";
-import RadioButton from "../../../../../common/radioButton/radioButton";
+import { RadioButton, Input } from "../../../../../components/Form";
 import { useAuthContext } from "../../../../../customHooks/useAuthContext";
 import { useUserAndGroup } from "../../../../../customHooks/userUserAndGroup";
 

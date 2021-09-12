@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import Input from "../../../../../common/input/Input";
+import { Input } from "../../../../../components/Form";
 import Button from "../../../../../common/button/button";
 
 interface IProps {

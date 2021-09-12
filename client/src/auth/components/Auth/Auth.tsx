@@ -3,7 +3,7 @@ import { AuthContext } from "../../../context/authContext";
 import axios from "axios";
 
 import Button from "../../../common/button/button";
-import Input from "../../../common/input/Input";
+import { Input } from "../../../components/Form/";
 import ImageUpload from "./ImgUpload/ImageUpload";
 
 export interface IInputVals {

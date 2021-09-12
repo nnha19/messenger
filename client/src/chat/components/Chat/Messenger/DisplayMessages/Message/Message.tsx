@@ -23,9 +23,6 @@ const Message = ({
   const day = date.getDay();
   const month = months[date.getMonth()];
 
-  const thisDay = date.getDay() === new Date().getDay();
-  const thisMonth = date.getMonth() === new Date().getMonth();
-
   const showTimeStampHandler = () => setShowTimeStamp(!showTimeStamp);
 
   return (
@@ -38,7 +35,7 @@ const Message = ({
       </div>
       {showTimeStamp && (
         <span className="block text-center text-sm">
-          {!thisMonth && month} {!thisDay && day} &nbsp;
+          {month} {day}, &nbsp;
           {hour}:{min}
         </span>
       )}
