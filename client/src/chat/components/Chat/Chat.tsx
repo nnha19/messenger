@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { UserAndGroupContext } from "../../../context/userAndGroupContext";
 import { IUserType, IGroup } from "../../../types/types";
 import { io } from "socket.io-client";
+import { Route } from "react-router-dom";
 
 import GroupMessenger from "./GroupMessenger/GroupMessenger";
 import Groups from "./Groups/Groups";
@@ -17,13 +18,8 @@ const Chat = () => {
     useContext(UserAndGroupContext);
   const authContext = useContext(AuthContext);
 
-  const [activeHeader, setActiveHeader] = useState("Users");
   const [chatWithUser, setChatWithUser] = useState<IUserType["user"]>();
   const [chatInGroup, setChatInGroup] = useState<IGroup>();
-
-  const toggleHeaderHandler = (header: string): void => {
-    setActiveHeader(header);
-  };
 
   const setChatWithUserHandler = (user: IUserType["user"]): void => {
     setChatWithUser(user);
@@ -91,27 +87,31 @@ const Chat = () => {
     <div className=" flex p-12 items-start">
       <div className="shadow-md mx-24  w-80">
         <div className="flex justify-between bg-primary ">
-          <ToggleHeader
-            toggleHeader={toggleHeaderHandler}
-            activeHeader={activeHeader}
-            header="Users"
-          />
-          <ToggleHeader
-            toggleHeader={toggleHeaderHandler}
-            activeHeader={activeHeader}
-            header="Groups"
-          />
+          <ToggleHeader header="users" />
+          <ToggleHeader header="groups" />
         </div>
         <hr />
-        {activeHeader === "Users" ? (
-          <Users users={users} setChatWithUser={setChatWithUserHandler} />
-        ) : (
-          <Groups
-            chatInGroup={chatInGroup}
-            socket={socket}
-            setChatInGroup={setChatInGroupHandler}
-          />
-        )}
+        <Route
+          path="/chat/users"
+          render={(props) => (
+            <Users
+              {...props}
+              users={users}
+              setChatWithUser={setChatWithUserHandler}
+            />
+          )}
+        />
+        <Route
+          path="/chat/groups"
+          render={(props) => (
+            <Groups
+              {...props}
+              chatInGroup={chatInGroup}
+              socket={socket}
+              setChatInGroup={setChatInGroupHandler}
+            />
+          )}
+        />
       </div>
       {chatWithUser && (
         <Messenger

@@ -17,7 +17,7 @@ function App() {
 
   const signInHandler = (userObj: IUserType["user"]) => {
     setCurUser(userObj);
-    history.push("/chat");
+    history.push("/chat/users");
   };
 
   const signOutHandler = async () => {
@@ -43,7 +43,7 @@ function App() {
         <Switch>
           {isAuth && curUser && (
             <ShowModalContext>
-              <Route path="/chat" exact component={ChatPage} />
+              <Route path="/chat" component={ChatPage} />
             </ShowModalContext>
           )}
           {!isAuth && <Route exact component={AuthPage} />}

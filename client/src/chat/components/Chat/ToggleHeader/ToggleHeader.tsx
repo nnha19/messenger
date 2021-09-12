@@ -1,24 +1,25 @@
 import React from "react";
+import { useHistory } from "react-router";
+import { NavLink } from "react-router-dom";
 
 interface IProps {
   header: string;
-  activeHeader: string;
-  toggleHeader: (header: string) => void;
 }
 
-const ToggleHeader: React.FC<IProps> = ({
-  header,
-  activeHeader,
-  toggleHeader,
-}) => {
-  const active = activeHeader === header && `border-b-4 font-bold `;
+const ToggleHeader: React.FC<IProps> = ({ header }) => {
+  const capitalizedHeader =
+    header[0].toUpperCase() + header.split("").splice(1).join("");
   return (
-    <h2
-      onClick={() => toggleHeader(header)}
-      className={`cursor-pointer text-center py-4 text-md text-white px-8 ${active}`}
+    <NavLink
+      activeStyle={{ borderBottom: "3px solid white" }}
+      to={`/chat/${header}`}
     >
-      {header}
-    </h2>
+      <h2
+        className={`cursor-pointer text-center py-4 text-md text-white px-8 `}
+      >
+        {capitalizedHeader}
+      </h2>
+    </NavLink>
   );
 };
 
