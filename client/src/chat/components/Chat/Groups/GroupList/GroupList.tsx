@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router";
 import AvatarImage from "../../../../../common/AvatarImage/AvatarImage";
 import { useAuthContext } from "../../../../../customHooks/useAuthContext";
 
@@ -8,17 +9,17 @@ import ThreeAvatarImgs from "./ThreeAvatarImgs/ThreeAvatarImgs";
 
 interface IProps {
   groups: IGroups["groups"];
-  setChatInGroup(group: IGroup): void;
 }
 
-const GroupList: React.FC<IProps> = ({ groups, setChatInGroup }) => {
+const GroupList: React.FC<IProps> = ({ groups }) => {
+  const history = useHistory();
   const { curUser } = useAuthContext("");
   const groupListOutput = groups.map((group): JSX.Element => {
     const newMsgs = group.messages.filter((m) => m.new).length;
     return (
       <div
+        onClick={() => history.push(`/chat/groups/${group._id}`)}
         key={group._id}
-        onClick={() => setChatInGroup(group)}
         className="mb-4 cursor-pointer  p-2 py-4 border-2"
       >
         <div className="flex items-center">

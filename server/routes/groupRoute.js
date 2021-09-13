@@ -19,6 +19,28 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:gid", async (req, res) => {
+  try {
+    const { gid } = req.params;
+    const group = await Group.findById(gid)
+      .populate({
+        path: "messages",
+        populate: { path: "sender" },
+      })
+      .populate({
+        path: "members",
+      });
+    if (group) {
+      res.status(200).json(group);
+    } else {
+      res.status(400).json(`Group with provided group id couldn't be found.`);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+
 router.post("/", imageUpload.single("groupImg"), async (req, res) => {
   try {
     const { name, type, userId } = req.body;
